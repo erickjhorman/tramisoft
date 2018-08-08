@@ -1,0 +1,3 @@
+Rama a trabajar: desarrollo
+Git para clonar = https://github.com/erickjhorman/tramisoft.git
+Organizacion en git para trabajar en equipo = proyectoTramisoft
