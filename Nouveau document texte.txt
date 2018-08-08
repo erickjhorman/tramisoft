@@ -1,3 +1,5 @@
 composer create-project --prefer-dist laravel/laravel tramisoft
-Controlador = php artisan make:controller 
+Controlador = php artisan make:controller TramitesControlador --resource
 Dar nombre a proyecto = php artisan app:name tramisoft
+
+Nombre del controlador= TramitesControlador
