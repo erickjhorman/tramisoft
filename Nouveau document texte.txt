@@ -3,3 +3,11 @@ Controlador = php artisan make:controller TramitesControlador --resource
 Dar nombre a proyecto = php artisan app:name tramisoft
 
 Nombre del controlador= TramitesControlador
+
+https://www.solvetic.com/tutoriales/article/2481-almacenar-archivos-en-campos-blob-con-php-y-mysql/
+
+21/08/2018
+Se creo la vista para crear el solicitante llamada cSolicitante 
+
+Se creo controlador solicitante 
+php artisan make:controller SolicitanteControlador --resource

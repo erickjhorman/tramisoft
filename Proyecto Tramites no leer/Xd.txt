@@ -1,0 +1,1197 @@
+create table Empleado 
+(Cod_Empleado number(3) not null,
+Nombre varchar2(30) not null,
+Identificacion number(20) not null,
+Telefono number(25) not null,
+Rol varchar(30) not null);
+____________________________________________________________________________________________________________________________________________________________
+
+create table Cita
+(Cod_Cita number(3) not null,
+Cod_empleado number(3) not null,
+Cod_Cliente number(3) not null,
+Fecha Date not null,
+Tipo_Cita varchar(50) not null check(Tipo_Cita in('Consulta', 'Seguimiento')),
+Valoracion varchar2(50) not null);
+____________________________________________________________________________________________________________________________________________________________
+
+create table Cliente
+(Cod_Cliente number(30) not null,
+NombreC varchar2(30) not null,
+Identificacion number(20) not null,
+Tipo_Cliente varchar(30) not null check(Tipo_Cliente in('Remitido', 'Externo')));
+____________________________________________________________________________________________________________________________________________________________
+
+create table Tarifa
+(Cod_Procedimiento number(3) not null,
+Cod_Empleado number(3) not null,
+Tarifa_Empleado number(10) not null);
+____________________________________________________________________________________________________________________________________________________________
+
+create table Cirugia
+(Cod_Cirugia number(3) not null,
+Cod_Procedimiento number(3) not null,
+Cod_Cita number(3) not null,
+Fecha Date not null,
+Hora varchar (10) not null);
+_____________________________________________________________________________________________________________________________________________________________
+create table Procedimiento
+(Cod_Procedimiento number(3) not null,
+NombreP varchar2(30) not null,
+Costo number(9) not null,
+Descripcion varchar2(100) not null);
+_____________________________________________________________________________________________________________________________________________________________
+
+create table Resultado
+(Cod_Resultado number(3) not null,
+Cod_Cirugia number(3) not null,
+Numero_Horas number(9) not null,
+Descripcion varchar2(100) not null);
+_____________________________________________________________________________________________________________________________________________________________
+
+create table Detalle_Cirugia
+(Cod_Cirugia number(3) not null,
+Cod_Empleado number(3) not null);
+_____________________________________________________________________________________________________________________________________________________________
+
+Alter table Empleado add constraint Empleado_Cod_Empleado_Pk primary key(Cod_Empleado);
+.
+Alter table Cita add constraint Cita_Cod_Cita_Pk primary key(Cod_Cita);
+.
+Alter table Cliente add constraint Cliente_Cod_Cliente_Pk primary key(Cod_Cliente);
+.
+Alter table Procedimiento add constraint Proce_Cod_Proce_Pk primary key(Cod_Procedimiento);
+.
+Alter table Cirugia add constraint Cru_Cod_Ciru_Pk primary key(Cod_cirugia);
+.
+Alter table Resultado add constraint Resu_Cod_Resu_Pk primary key(Cod_Resultado);
+.
+_____________________________________________________________________________________________________________________________________________________________
+
+Alter table Cita add constraint Cita_Cod_Emple_Fk foreign key(Cod_Empleado) references Empleado(Cod_Empleado);
+*
+Alter table Tarifa add constraint Tari_Cod_Emple_Fk foreign key(Cod_Empleado) references Empleado(Cod_Empleado);
+*
+Alter table Detalle_Cirugia add constraint DtCiru_Cod_Emple_Fk foreign key(Cod_Empleado) references Empleado(Cod_Empleado);
+*
+Alter table Cita add constraint Cita_Cliente_Fk foreign key(Cod_Cliente) references Cliente(Cod_Cliente);
+*
+Alter table Cita add constraint Ciru_Cita_Fk foreign key(Cod_Cita) references Cirugia(Cod_Cirugia);
+*
+Alter table Tarifa add constraint Proce_Tari_Fk foreign key(Cod_Procedimiento) references Procedimiento(Cod_Procedimiento);??
+*
+Alter table Cirugia add constraint Cirugia_cod_prodecimiento_fk foreign key(cod_Cirugia)references Procedimiento(Cod_Procedimiento);
+*
+Alter table Detalle_Cirugia add constraint Cirugia_Detalle_Fk foreign key(Cod_Cirugia) references Cirugia(Cod_Cirugia);
+*
+Alter table Resultado add constraint Resultado_Cirugia_Fk foreign key(Cod_Cirugia) references Resultado(Cod_Resultado);
+*
+_____________________________________________________________________________________________________________________________________________________________
+
+1. Se requiere listar todo los especialistas medicos que han realizado correcion de tabique.
+2. Se requiere mostrar las cirugias programadas en el futuro que son suave brisa.
+3. Mostrar cuanto se ha recolectado en costo de procediminetos de correccion facial.
+4. Determinar cada medico anesteciologo cuantos procedimientos ha tenido a su cargo. 
+5. Mostar todo los datos del cliente y cuantas cirugia se ha practicado.
+6. Se requiere actualizar el costo del procedimiento mas economico aumentandolo un 10%.
+7. Se requiere borrar todos aquellos procedimiento que no han sido practicados en ningun momento.
+____________________________________________________________________________________________________________________________________________________________
+
+1. select empleado.nombre, empleado.cod_empleado, empleado.Identificacion, empleado.telefono from empleado, cita, cirugia, procedimiento
+where empleado.cod_empleado=cita.cod_empleado and cita.cod_cita=Cirugia.cod_cita and cirugia.cod_Procedimiento=Procedimiento.Cod_procedimiento 
+and empleado.cod_empleado in(Select empleado.cod_empleado from cirugia) and procedimiento.nombreP='correccion de tabique' and empleado.rol='especialista'
+group by empleado.nombre, empleado.cod_empleado, empleado.Identificacion, empleado.telefono;
+
+2. Select cirugia.fecha, procedimiento.nombreP from cirugia, procedimiento
+where cirugia.cod_procedimiento=procedimiento.Cod_procedimiento
+and Fecha>sysdate and procedimiento.nombreP='suave brisa';
+
+3. Select procedimiento.nombreP, fecha, sum(costo) from procedimiento, cirugia
+where procedimiento.Cod_procedimiento=cirugia.Cod_procedimiento
+and Fecha<=sysdate and procedimiento.nombreP='correcion facial' 
+group by procedimiento.nombreP, fecha;
+
+4. select empleado.nombre, empleado.cod_empleado, empleado.Identificacion, count(empleado.Cod_empleado) from empleado, tarifa, procedimiento
+where empleado.Cod_empleado=tarifa.Cod_empleado and tarifa.Cod_empleado=procedimiento.Cod_procedimiento 
+and empleado.rol='anesteciologo'
+group by empleado.nombre, empleado.cod_empleado, empleado.Identificacion;
+   
+5. select cliente.nombreC, cliente.Identificacion, cliente.Tipo_Cliente from cliente, cita, cirugia 
+where cliente.cod_cliente=cita.Cod_cliente and cita.Cod_cita=Cirugia.Cod_cita
+and cliente.cod_cliente in(Select cliente.cod_cliente from cirugia)
+group by cliente.nombreC, cliente.Identificacion, cliente.Tipo_Cliente;
+
+6. Update procedimiento set costo=costo+(costo*0.01)
+where procedimiento.costo=(Select min(costo) from procedimiento);
+
+7. Delete from procedimiento
+where procedimiento.Cod_procedimiento not in(Select procedimiento.Cod_procedimiento from cirugia);
+
+__________________________________________________________________________________________________________________________________________________________
+
+SEQUENCES
+create sequence Cod_Empleado_sq;
+create sequence Cod_Cita_sq;
+create sequence Cod_Cliente_sq;
+create sequence Cod_Procedimiento_sq;
+create sequence Cod_cirugia_sq;
+create sequence Cod_Resultado_sq;
+___________________________________________________________________________________________________________________________________________________________
+ VALUES
+insert into empleado values
+(cod_empleado_sq.nextval, 'Juan Carlos Castillo', '10256482', '3215698754', 'Especialista');
+
+insert into empleado values
+(cod_empleado_sq.nextval, 'cuchi baby', '1064546', '325464', 'Asistente');
+
+insert into empleado values
+(cod_empleado_sq.nextval, 'Andres Ramos', '10897546', '3124569875', 'Anesteciologo');
+
+
+insert into empleado values
+(cod_empleado_sq.nextval, 'Pepe Mosquera', '101552365', '3115486598', 'Cirujano');
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into Cliente values
+(cod_cliente_sq.nextval, 'Carlos Solis', '107453698', 'Remitido');
+
+insert into Cliente values
+(cod_cliente_sq.nextval, 'Juan', '153698', 'Remitido');
+
+insert into Cliente values
+(cod_cliente_sq.nextval, 'Juliana Solano', '1024565898', 'Externo');
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into Cita values
+(Cod_Cita_sq.nextval, 1, 2, '22-Jul-2016', 'Consulta', 'Debe ser intervenido quirurgicamente');
+
+insert into Cita values
+(cod_cita_sq.nextval, '41', '22', '05-May-2017', 'Consulta', 'Operar inmediatamente');
+
+insert into Cita values
+(cod_cita_sq.nextval, '2', '1', '04-Sep-2016', 'Consulta', 'Al cliente se le debe practicar una correcion ');
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into Procedimiento values
+(Cod_procedimiento_sq.nextval,'Correcion Visual','280000' , 'Poca vision lejana');
+
+insert into Procedimiento values
+(Cod_procedimiento_sq.nextval,'Tabique','405000' , 'tabique muy dilatado');
+
+insert into Procedimiento values
+(Cod_procedimiento_sq.nextval,'Liposuccion','1500000' , 'Sobrepeso');
+
+insert into Procedimiento values
+(Cod_procedimiento_sq.nextval,'Amputacion de brazo','5500000' , 'El paciente tenia gangrena');
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into Tarifa values
+('1','21','750000' );
+
+insert into Tarifa values
+('2','21','750000' );
+
+insert into Tarifa values
+('3','1','100000' );
+
+insert into Tarifa values
+('4','2','1750000' );
+
+insert into Tarifa values
+('21','41','1000000' );
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+insert into Cirugia values
+(Cod_cirugia_sq.nextval,'1','5' ,'26-Jun-2016', '10:30');
+
+insert into Cirugia values
+(Cod_cirugia_sq.nextval,'21','44' ,'2-Jun-2016', '10:02');
+
+
+insert into Cirugia values
+(Cod_cirugia_sq.nextval,'2','2' ,'26-Dec-2016', '1:50');
+
+insert into Cirugia values
+(Cod_cirugia_sq.nextval,'3','3' ,'6-Jan-2016', '2:30');
+
+
+insert into Cirugia values
+(Cod_cirugia_sq.nextval,'4','6' ,'26-Oct-2016', '4:40');
+_______________________________________________________________________________________________________________________________________________________________
+DECLARE
+
+DECLARE variable1 number(3);
+        variable2 number(3);
+        total number(5);
+
+BEGIN variable1 := & variable1;
+      variable2 := & variable2;
+      total := variable1 + variable2;
+      Dbms_output.put_line('La suma es '||total);
+      end;
+      /
+
+Ingresado el radio de un circulo: su area, su diametro y su perimetro definiendo como una constante pi
+ingresado una fecha de nacimiento: años, meses y dias totalizados 
+Ingresado los dos catetos de un triangulo rectangulo: Hipotenuza 
+_______________________________________________________________________________________________________________________________________________________________
+
+
+Declare 
+        radio number(10);
+        PI CONSTANT  number:= 3.14;
+        area number(10);
+        diametro number(10);
+        perimetro number(10);
+
+Begin radio := & radio;
+      area := radio*PI;
+      perimetro := 2*PI*radio;
+      diametro := radio*2;
+  Dbms_output.put_line('El area es '||area);
+  Dbms_output.put_line('El perimetro es '||perimetro);
+  Dbms_output.put_line('El diametro es '||diametro);
+  End;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+
+Declare catetoOp number(10);
+        catetoAd number(10);
+        Hipotenuza number(10);
+
+Begin   catetoOp := & catetoOp;
+        catetoAd := & catetoAd;
+        Hipotenuza := sqrt((catetoOp*catetoOp)+(catetoAd*catetoAd));
+        Dbms_output.put_line('La hipotenuza es: '||Hipotenuza);
+        end;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Declare Fecha_Nac DATEFROMPARTS(YEAR, MONTH, DAY);
+        
+      
+
+Begin Fecha_Nac := & Fecha_Nac;
+      Dbms_output.put_line('es: '||Fecha_Nac);
+      end;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Leidos tres numeros por teclado, determinar cual es el mayor, el del medio y el menor.
+
+
+Declare 
+        vuno number(20);
+        vdos number(20);
+        vtres number(20);
+
+Begin vuno := & vuno;
+      vdos := & vdos;
+      vtres := & vtres;
+      
+      if(vuno > vdos and vuno>vtres) then
+              Dbms_output.put_line('El mayor es: ' || vuno);
+               end if;
+            if(vdos > vuno and vdos > vtres) then
+              Dbms_output.put_line('el mayor es: ' || vdos);
+               end if;
+             if(vtres > vuno and vtres > vdos) then
+               Dbms_output.put_line('el mayor es: ' || vtres);
+          end if;
+      if(vuno < vdos and vuno<vtres) then
+              Dbms_output.put_line('El menor es: ' || vuno);
+               end if;
+            if(vdos < vuno and vdos < vtres) then
+              Dbms_output.put_line('El menor es: ' || vdos);
+               end if;
+             if(vtres < vuno and vtres < vdos) then
+               Dbms_output.put_line('El menor es: ' || vtres);
+        end if;
+      if(vuno > vdos and vuno <vtres) then
+              Dbms_output.put_line('El mediano es: ' || vuno);
+               end if;
+       if(vuno < vdos and vuno > vtres) then
+              Dbms_output.put_line('El mediano es: ' || vuno);
+               end if;     
+            if(vdos < vuno and vdos > vtres) then
+              Dbms_output.put_line('El mediano es: ' || vdos);
+               end if;
+         if(vdos > vuno and vdos < vtres) then
+              Dbms_output.put_line('El mediano es: ' || vdos);
+               end if;
+             if(vtres > vuno and vtres < vdos) then
+               Dbms_output.put_line('El mediano es: ' || vtres);
+        end if;
+        if(vtres < vuno and vtres > vdos) then
+               Dbms_output.put_line('El mediano es: ' || vtres);
+      end if;
+end;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ingresado tres angulos de un triangulo: determinar si es un triangulo, determinar si un un triangulo rectangulo, determinar si es un triangulo isoseles y 
+determinar si es un triangulo escaleno...
+
+Declare angulo1 number(20);
+        angulo2 number(20);
+        angulo3 number(20);
+
+Begin   angulo1 := & angulo1;
+        angulo2 := & angulo2;
+        angulo3 := & angulo3; 
+
+   if(angulo1+angulo2+angulo3=180 and angulo1!=0 and angulo2!=0 and angulo3!=0 and angulo1>0 and angulo2>0 and angulo3>0) then 
+          Dbms_output.put_line('Es un triangulo ' );
+      if(angulo1=60 and angulo2=60 and angulo3=60) then 
+           Dbms_output.put_line('Es un triangulo equilatero ' );
+      end if;
+      if(angulo1=90 or angulo2=90 or angulo3=90) then 
+           Dbms_output.put_line('Es un triangulo rectangulo ' );
+      end if;
+      if(angulo1=angulo2 or angulo1=angulo3 or angulo2=angulo3) then 
+           Dbms_output.put_line('Es un triangulo isosceles ' );
+      end if;
+      if(angulo1!=angulo2 and angulo1!=angulo3 and angulo2!=angulo3) then 
+           Dbms_output.put_line('Es un triangulo escaleno ' );
+      end if;
+    else
+       Dbms_output.put_line('No es un triangulo ' ); 
+      end if;   
+end;
+__________________________________________________________________________________________________________________________________________________________________
+
+Ingresado un numero... determinar sus divisores
+
+Declare
+A1 number(3);
+i number(3);
+Begin 
+A1 :=& A1;
+i:=1;
+
+while(i<=A1)loop
+if(MOD(A1,i)=0)then
+Dbms_output.put_line('Divisores '||i); 
+end if;
+i:=i+1;
+end loop;
+end;
+     
+__________________________________________________________________________________________________________________________________________________________________
+ingresado dos numeros... establesca el mcd
+
+Declare
+A1 number(3);
+A2 number(3);
+i number(3);
+r number(3);
+
+Begin 
+A1 :=& A1;
+A2 :=& A2;
+i:=1;
+r:=0;
+
+Loop 
+  if(i<=A1 or i<=A2)then
+          if(MOD(A1,i)=0 and MOD(A2,i)=0)then
+                r:=i;
+          end if;      
+          exit when(i=A1 or i=A2);   
+  end if; 
+     i:=i+1;
+end loop;
+    Dbms_output.put_line('Mcd es '||r);
+end;
+___________________________________________________________________________________________________________________________________________________________________
+
+ingresado dos numeros... establesca el mcd(for)
+
+Declare
+A1 number(3);
+A2 number(3);
+i number(3);
+r number(3);
+
+Begin
+A1 :=& A1;
+A2 :=& A2;
+r:=0;
+ 
+for i in 1..10 loop
+  if(i<=A1 or i<=A2)then
+   if(MOD(A1,i)=0 and MOD(A2,i)=0)then
+      r:=i;
+   end                            
+  end if;
+end loop;                                                
+  Dbms_output.put_line('Mcd es '||r);
+end;
+__________________________________________________________________________________________________________________________________________________________________
+Ingresado el codigo de un cirujano... establecer cuantas cirugias ha realizado y de acuerdo a esto clasificar:
+de 0 a 3 junior
+de 4 a 10 senior
+mas de 11 master....
+
+forma #1:
+Declare 
+V_cod_empleado empleado.cod_empleado%type;
+conteo number(3);
+datos empleado%rowtype;
+
+Begin
+ V_Cod_empleado :=& V_Cod_empleado;
+
+Select * into datos from empleado
+ where Cod_Empleado = V_Cod_Empleado;
+
+if(datos.rol='Cirujano')then
+
+Select count(cod_cirugia) into conteo from detalle_cirugia
+where Cod_empleado=V_Cod_Empleado;
+                                                              
+ if(conteo<=3)then
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Junior');
+   end if;
+   if(conteo>=4 and conteo<=10)then  
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Senior');
+   end if;
+   if(conteo>11)then
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Master');
+ end if;
+end if;  
+end;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+forma #2:
+
+Declare 
+V_cod_empleado empleado.cod_empleado%type;
+conteo number(3);
+datos empleado%rowtype;
+
+Begin
+ V_Cod_empleado :=& V_Cod_empleado;
+
+Select * into datos from empleado
+ where Cod_Empleado = V_Cod_Empleado;
+
+Select count(cod_cirugia) into conteo from detalle_cirugia
+where Cod_empleado=V_Cod_Empleado;
+                                                              
+ if(conteo<=3)then
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Junior');
+   end if;
+   if(conteo>=4 and conteo<=10)then  
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Senior');
+   end if;
+   if(conteo>11)then
+      Dbms_output.put_line('El cirujano '||datos.Nombre||  ' es un cirujano: Master');
+ end if;
+Exception 
+    when no_data_found then    
+    Dbms_output.put_line('El codigo ingresado no existe');  
+end;
+__________________________________________________________________________________________________________________________________________________________________
+
+Ingresado el codigo de un paciente determinar si este ha tenido dos o mas cirugias. al tener dos o mas cirugias informar todos los datos del cliente 
+y un mensaje de paciente de alto riesgo
+
+Declare 
+ V_cod_cliente cliente.cod_cliente%type;
+ conteo number(3);
+ datos cliente%rowtype;
+
+Begin
+ V_Cod_cliente :=& V_Cod_cliente;
+
+ Select * into datos from cliente
+  where Cod_cliente = V_Cod_cliente;
+
+ Select count(cod_cirugia) into conteo from cirugia
+  where Cod_cliente=V_Cod_Cliente;
+
+if(conteo<2) then
+  Dbms_output.put_line('El cliente  '||datos.NombreC||  ' no es de alto riesgo');
+end if;
+if(conteo>=2) then
+   Dbms_output.put_line('El cliente  '||datos||  ' es de alto riesgo');
+end if;
+ Exception 
+    when no_data_found then    
+    Dbms_output.put_line('El codigo ingresado no existe');  
+end;
+__________________________________________________________________________________________________________________________________________________________________
+Se requiere realizar un pl/sql que permita buscar el cirujano, contabilizar sus cirugias y si posee
+mas de 10 cirugias cambiarle su rol a cirujano jefe
+
+
+Declare 
+V_Cod_empleado empleado.cod_empleado%type;
+conteo number(3);
+datos empleado%rowtype;
+
+Begin
+V_Cod_empleado := & V_Cod_empleado;
+
+Select * into datos from empleado
+ where Cod_Empleado = V_Cod_Empleado;
+
+Select count(cod_cirugia) into conteo from detalle_cirugia
+where Cod_empleado=V_Cod_Empleado;
+
+if(conteo<10)then
+ Dbms_output.put_line('El cirujano '||datos.Nombre||  ' no aplica para jefe');
+end if;
+
+if(conteo>10)then
+Update empleado set rol='Cirujano Jefe'
+where Cod_empleado=V_Cod_Empleado;
+end if;
+ 
+end;
+__________________________________________________________________________________________________________________________________________________________________
+
+
+Ingresado el codigo de un empleado determinar lo que ha ganado hasta el momento segun el diseño de la mejor forma
+
+
+Declare 
+V_Cod_empleado empleado.cod_empleado%type;
+suma number(8);
+datos empleado%rowtype;
+
+Begin
+V_Cod_empleado := & V_Cod_empleado;
+
+Select * into datos from empleado
+ where Cod_Empleado = V_Cod_Empleado;
+
+Select sum(tarifa_empleado) into suma from Tarifa
+where Cod_empleado=V_Cod_Empleado;
+Dbms_output.put_line('El empleado '||datos.Nombre||  ' se ha ganado '||suma);
+end;
+
+_________________________________________________________________________________________________________________________________________________________________
+Un empleado ha sido distituido por mal inversion de fondos se requiere con su codigo 
+realizar el procedimiento que lo borre totalmente de la BDD.
+
+Declare 
+V_Cod_empleado empleado.cod_empleado%type;
+datos empleado%rowtype;
+
+Begin
+V_Cod_empleado := & V_Cod_empleado;
+
+Select * into datos from empleado
+ where Cod_Empleado = V_Cod_Empleado;
+
+delete from tarifa
+where tarifa.cod_empleado = V_Cod_Empleado;
+
+delete from detalle_cirugia
+where detalle_cirugia.cod_empleado = V_Cod_Empleado;
+
+delete from cita
+where cita.cod_empleado = V_Cod_Empleado;
+
+delete from cirugia
+where cirugia.cod_cita in(select cod_cita from cirugia);
+
+delete from empleado
+where empleado.cod_empleado = V_Cod_Empleado;
+
+Dbms_output.put_line('El empleado '||datos.Nombre||  ' se ha borrador de la base de datos ');
+
+end;
+___________________________________________________________________________________________________________________________________________________________________
+
+Cursores 
+Un cursor es un tramo de memoria, señalando memoria.
+
+Tipos de Cursores:
+                      1. Los de sistema 
+                      2. Los definidos por el Usuario.
+
+Create table X
+(Cod_x number(3) primary key,
+valor number(5) not null);
+
+create sequence cod_x_Sq
+
+insert into y values
+(cod_x_sq.nextval, '69');
+insert into y values
+(cod_x_sq.nextval, '45');
+insert into y values
+(cod_x_sq.nextval, '27');
+insert into y values
+(cod_x_sq.nextval, '19');
+insert into y values
+(cod_x_sq.nextval, '33');
+insert into y values
+(cod_x_sq.nextval, '57');
+insert into y values
+(cod_x_sq.nextval, '97');
+insert into y values
+(cod_x_sq.nextval, '121');
+insert into y values
+(cod_x_sq.nextval, '17');
+insert into y values
+(cod_x_sq.nextval, '6');
+insert into y values
+(cod_x_sq.nextval, '4');
+insert into y values
+(cod_x_sq.nextval, '22');
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Se requiere atraves de un cursor hallar el v_max y v_min del campor valor.
+
+Declare 
+cursor mouse is 
+select * from x;
+datos x%rowtype;
+valormin x.valor%type;
+valormax x.valor%type;
+
+Begin
+open mouse;
+fetch mouse into datos;
+valormin := datos.valor;
+valormax := datos.valor;
+
+while mouse%found loop
+
+if datos.valor<valormin then
+valormin := datos.valor;
+end if;
+ 
+if datos.valor>valormax then 
+valormax := datos.valor;
+end if;
+
+fetch mouse into datos;
+end loop;
+Dbms_output.put_line('El menor es: '||valormin);
+Dbms_output.put_line('El mayor es: '||valormax);
+
+close mouse;
+end;
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Se requiere organizar el valor de la tabla x de menor a mayor mostrandolo en
+pantalla no en la tabla.
+
+commit;
+Declare 
+  cursor recorrido is 
+   select * from x;
+  Datos x%RowType;
+  V_organizar x.valor%Type;
+  V_cod_x x.cod_x%Type;	
+  numero number(3);
+
+Begin
+	
+select count(cod_x) into numero from x;
+
+for i in 1..numero loop
+  OPEN recorrido;
+  FETCH recorrido INTO Datos;
+
+  V_organizar :=Datos.valor;
+  while recorrido%FOUND loop	
+	
+  if Datos.valor<=V_organizar then
+  V_organizar :=Datos.valor;
+  V_cod_x:=Datos.cod_x;
+		
+end if;
+	
+  FETCH recorrido INTO Datos;
+end loop;
+	
+  Dbms_output.put_line('el valor de menor a mayor :'||V_organizar);
+   delete x where x.valor=V_organizar and x.cod_x=V_cod_x;
+
+ close recorrido;
+end loop;	
+rollback;
+end;
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Realizar un procedimiento pl/sql que determine cuantas veces esta cada uno de los valores de la tabla x (sin utilizar group by)
+2. Determinar que valores de la tabla x son primos.
+3. Realizar un procedimiento que muestre invertida la tabla x y valor(en pantalla no es tabla).
+--. Crear la tabla Y; igualmente con codigo y valor e ingresar registros (diferente cantidad que la tabla x)
+4. Realizar un procedimiento que intercambie los valores uno a uno entre las tablas(los valores que sobran de alguna de las tablas quedan quietos).
+5. Mostrar los valores que esten en la tabla X juntos con la tabla Y(sin repetir valores ni utilizar union).
+6. Mostrar los valores repetidos de la tabla X y de la tabla Y(sin repetir ni utilizar interct)
+7. Mostar la diferencia entre las dos tablas X y Y(valores de la tabla X que no esten en la tabla Y, y sin repetir valores ni utilizar minus).
+_______________________________________________________________________________________________________________________________________________________________________
+
+1.
+commit;
+Declare
+     cursor mouse is 
+     select * from x;
+     val x.valor%type;
+     datos x%rowtype;
+     con number(8);
+     cont number(8);
+
+Begin
+ cont:=0;
+select count(cod_x) into con from x; 
+
+for i in 1..12 loop  
+ open mouse;
+   fetch mouse into datos;
+      
+       val:=datos.valor;
+     
+  while mouse%found loop
+  
+     if(datos.valor=val)then
+         
+         val:=datos.valor; 
+         cont:=cont+1; 
+    end if;
+      fetch mouse into datos;
+  end loop;
+   delete x where x.valor=val;
+     Dbms_output.put_line('Valor:  '||val||' Esta '||cont||' Veces');
+           cont:=0;
+
+ close mouse;
+end loop;
+rollback;
+end;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+commit;
+Declare
+     cursor mouse is 
+     select valor from x;
+     val x.valor%type;
+     divide number(8);
+     bandera number(8);
+
+Begin
+divide:=2;
+bandera:=0;
+open mouse;
+fetch mouse into val;
+  while mouse%found loop
+   
+  while (divide<=(val/2)) Loop
+      if(MOD(val,divide)=0 )then 
+          bandera:=1;
+         end if;
+       divide:=divide+1;
+  
+end loop;
+     if (bandera=0) then
+       Dbms_output.put_line('Valor:  '||val||' Es primo  '); 
+     end if;
+     
+delete x where x.valor=val; 
+divide:=2;
+bandera:=0;
+close mouse;
+open mouse;
+fetch mouse into val;
+end loop; 
+rollback;
+close mouse;
+end;
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+commit;
+Declare 
+   cursor recorrido is 
+   select * from x ;
+   datos x%RowType;
+   V_organizar x.valor%Type;
+   V_cod_x x.cod_x%Type;	
+   numero number(3);
+Begin
+	
+select count(cod_x) into numero from x;
+
+for i in 1..numero loop
+  OPEN recorrido;
+  FETCH recorrido INTO datos;
+   
+   V_organizar :=datos.valor;
+   while recorrido%FOUND loop	
+	
+ if Datos.valor>=V_organizar then
+
+    V_organizar :=Datos.valor;
+    V_cod_x:=Datos.cod_x;
+ end if;
+	
+ FETCH recorrido INTO Datos;
+
+end loop;
+	
+   Dbms_output.put_line(' valor '||V_organizar||' cod_x '|| V_cod_x);
+   delete x where x.valor=V_organizar and x.cod_x=V_cod_x;
+
+close recorrido;
+end loop;	
+rollback;
+end;
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+commit;
+Declare 
+ cursor recorrido is 
+    select * from x ;
+ cursor recorrido_2 is 
+    select * from y ;
+Datos x%RowType;
+Datos_2 y%RowType;
+numero_cambio number(10);
+codigo_cambio number(10);
+  
+Begin
+	
+ OPEN recorrido;
+  FETCH recorrido INTO Datos;
+
+ OPEN recorrido_2;
+  FETCH recorrido_2 INTO Datos_2;
+
+ while recorrido_2%FOUND loop	
+ numero_cambio := Datos.valor;
+ codigo_cambio:= Datos_2.cod_y;
+
+update y set valor = numero_cambio where cod_y = codigo_cambio;
+    numero_cambio :=0;
+    codigo_cambio:= 0;
+
+    numero_cambio := Datos_2.valor;
+    codigo_cambio:= Datos.cod_x;
+
+update x set valor = numero_cambio where cod_x = codigo_cambio;	
+	
+ FETCH recorrido_2 INTO Datos_2;
+ FETCH recorrido INTO Datos;
+
+END LOOP;
+
+close recorrido;
+close recorrido_2;
+end;
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+De acuerdo al diseño realizar un reporte de nomina para los cirujanos de acuerdo a la tarifa y procedimientos realizados.
+
+Declare
+    Cursor recorrido
+    is select cod_empleado, nombre from empleado;
+    T empleado.cod_empleado%type;
+    P empleado.nombre%type;
+    numero number(10);
+    
+Begin
+   Open recorrido;
+   FETCH recorrido INTO T, P;
+  while recorrido%FOUND loop
+
+
+Select sum(tarifa_empleado) into numero from tarifa, procedimiento
+where tarifa.cod_procedimiento=procedimiento.cod_procedimiento
+and cod_empleado=T;
+
+ Dbms_output.put_line('El empleado '||P||  ' se ha ganado '||numero);
+
+  FETCH recorrido into T, P;
+ numero:=0;
+ 
+end loop;
+Close recorrido;
+end;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se requiere clasificar los clientes de acuerdo al numero de procedimineto que tiene(past ou future) de la siguiente forma 
+de 0 a 3 pacientes "ambulatorio local"
+de 4 a 7 pacientes "observaciones constantes"
+mas de 7 pacientes "de alto riesgo"
+
+Declare
+    Cursor recorrido
+    is select cod_cliente, NombreC from cliente;
+    T cliente.cod_cliente%type;
+    P cliente.NombreC%type;
+    numero number(10);
+    
+Begin
+ Open recorrido;
+   FETCH recorrido INTO T, P;
+  while recorrido%FOUND loop
+ 
+Select count(procedimiento.cod_procedimiento) into numero 
+from procedimiento, cirugia, cita, cliente
+where procedimiento.cod_procedimiento=cirugia.cod_procedimiento 
+and cirugia.cod_cita=cita.cod_cita
+and cita.cod_cliente=cliente.cod_cliente;
+
+if(numero<=3)then
+     Dbms_output.put_line('El cliente '||P||  ' Es de ambulatorio local ');
+
+end if;
+
+if(numero>3 and numero<=7)then
+     Dbms_output.put_line('El cliente '||P||  ' Es de observaciones constantes');
+
+end if;
+
+if(numero>7)then
+     Dbms_output.put_line('El cliente '||P||  ' Es de alto riesgo');
+
+end if;
+
+ FETCH recorrido INTO T, P;
+   numero:=0;
+ 
+end loop;
+Close recorrido;
+end;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se requiere realizar un procedimiento que actualize la tarifa de los empleados segun el numero de procedimientos realizados:
+0 procedimientos disminuir su salario(tarifa) en 2%
+de 1 a 5 aumentar su salario(tarifa) en un 3%
+mas de 5 aumentar su salario(tarifa) en 7%
+
+
+Declare
+    Cursor recorrido
+    is select cod_empleado, Nombre from empleado;
+    T empleado.cod_empleado%type;
+    P empleado.Nombre%type;
+    numero number(10);
+    
+Begin
+   Open recorrido;
+   FETCH recorrido INTO T, P;
+   while recorrido%FOUND loop
+ 
+Select count(tarifa.cod_procedimiento) into numero from tarifa, procedimiento
+where tarifa.cod_procedimiento=procedimiento.cod_procedimiento
+and cod_empleado=T;
+                                                                                    
+if(numero=0)then
+Update tarifa set tarifa_empleado=tarifa_empleado-(tarifa_empleado*0.02);
+
+end if;
+
+if(numero>0 and numero<=5)then
+Update tarifa set tarifa_empleado=tarifa_empleado+(tarifa_empleado*0.03);
+
+end if;
+
+if(numero>5)then
+Update tarifa set tarifa_empleado=tarifa_empleado+(tarifa_empleado*0.07);
+
+end if;
+  
+  FETCH recorrido INTO T, P;
+   numero:=0;
+ 
+end loop;
+Close recorrido;
+end;
+   
+    
+   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Realizar un procedimiento que permita registrar una cita de un cirujano, validando de que este no tenga citas en ese dia.
+
+Declare
+Cod_Cirujano number(3);
+Fecha3 date;
+m varchar2(20);
+
+
+Begin
+Cod_Cirujano:=&Cod_Cirujano;
+Fecha3:=&Fecha3;
+
+Select empleado.rol into m from empleado where
+cod_empleado=Cod_Cirujano  and Cod_Cirujano not in (select cod_empleado from cita where fecha=Fecha3);
+
+
+if(m='Cirujano') then
+
+insert into Cita values
+(Cod_Cita_sq.nextval, Cod_Cirujano, 4, Fecha3, 'Consulta', 'Debe ser intervenido quirurgicamente');
+
+else 
+  Dbms_output.put_line('Fecha ya disponible');
+end if;
+end;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+2. Realizar un procedimiento que permita mostar el total del procedimiento segun la tarifa de los empleados de aquellos clientes remitidos.
+A su vez mostar sobre este valor un posible 3% de descuento.
+
+
+commit;                                                                                                                                                                          Declare
+    Cursor recorrido
+    is select cod_procedimiento, tarifa_empleado from tarifa;
+    T tarifa.cod_procedimiento%type;
+    P tarifa.tarifa_empleado%type;
+    suma number(10);
+    Total number(10);                                                                                                   
+    
+Begin-+
+   Open recorrido;
+   FETCH recorrido INTO T, P;
+   while recorrido%FOUND loop 
+                                                                                                          
+                                                                                                                                                                               Select sum(tarifa.tarifa_empleado) into suma from tarifa, empleado, cita, cliente
+where tarifa.cod_empleado=empleado.cod_empleado and 
+empleado.cod_empleado=cita.cod_empleado and cita.cod_cliente=cliente.cod_cliente 
+and cliente.tipo_cliente='Remitido'; 
+       FETCH recorrido INTO T, P;
+end loop; 
+                                                                                                                                           
+      Dbms_output.put_line('El total del procedimiento es '||suma);
+
+ Total:=suma-(suma*0.03);
+      Dbms_output.put_line('El total del procedimiento incluido el descuento es '||Total);
+  
+delete from tarifa where tarifa.tarifa_empleado = tarifa.tarifa_empleado;
+     
+
+  Close recorrido;                                                                                                                                                            
+end;                                                                                                                                                                                                                                                                                                                                                             ________________________________________________________________________________________________________________________________________________________________________________ 
+
+Procedimiento
+
+Ejercicio: tipo de triangulo.  
+
+                                                                                                                                                                               Create or replace
+Procedure Tipo_triangulo
+is
+  angulo1 number(20);
+  angulo2 number(20);
+  angulo3 number(20);
+
+Begin
+    angulo1 := & angulo1;
+    angulo2 := & angulo2;
+    angulo3 := & angulo3;
+ 
+if(angulo1+angulo2+angulo3=180 and angulo1!=0 and angulo2!=0 and angulo3!=0 and angulo1>0 and angulo2>0 and angulo3>0) then 
+          Dbms_output.put_line('Es un triangulo ' );
+      if(angulo1=60 and angulo2=60 and angulo3=60) then 
+           Dbms_output.put_line('Es un triangulo equilatero ' );
+      end if;
+      if(angulo1=90 or angulo2=90 or angulo3=90) then 
+           Dbms_output.put_line('Es un triangulo rectangulo ' );
+      end if;
+      if(angulo1=angulo2 or angulo1=angulo3 or angulo2=angulo3) then 
+           Dbms_output.put_line('Es un triangulo isosceles ' );
+      end if;
+      if(angulo1!=angulo2 and angulo1!=angulo3 and angulo2!=angulo3) then 
+           Dbms_output.put_line('Es un triangulo escaleno ' );
+      end if;
+    else
+       Dbms_output.put_line('No es un triangulo ' ); 
+      end if;   
+end Tipo_triangulo;
+/ 
+
+Begin
+Tipo_triangulo();
+end;
+/                                                                                                                                                                                                                                                                                                                                    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  Create or replace 
+procedure Valor
+is
+  cursor mouse is 
+  select * from x;
+  datos x%rowtype;
+  valormin x.valor%type;
+  valormax x.valor%type;
+
+Begin
+open mouse;
+fetch mouse into datos;
+valormin := datos.valor;
+valormax := datos.valor;
+
+while mouse%found loop
+
+if datos.valor<valormin then
+valormin := datos.valor;
+end if;
+ 
+if datos.valor>valormax then 
+valormax := datos.valor;
+end if;
+
+fetch mouse into datos;
+end loop;
+Dbms_output.put_line('El menor es: '||valormin);
+Dbms_output.put_line('El mayor es: '||valormax);
+
+close mouse;
+end Valor;       
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se requiere crear un menu en el que al leer el codigo de un empleado 
+
+1. Determine que rol tiene en la empresa.
+2. Muestre su nombre y la cantidad de cirugias en la que ha intervenido.
+3. Muestre lo recaudado segun tarifa y cirugias en la que ha intervenido.
+
+Create or replace 
+procedure Menu
+is 
+  Datos empleado%Rowtype;
+  T tarifa.cod_empleado%type;
+  P tarifa.tarifa_empleado%type;
+  codigo empleado.cod_empleado%type;;
+  Cont number(10); 
+  plata number(8);
+
+Begin
+
+ 
+prompt Escoja una opcion:
+prompt 1: Rol del empleado
+prompt 2: Nombre y Cantidad de Cirugias
+prompt 3: Recaudo en cirugias
+
+accept selection prompt "Enter option 1-3: "
+
+set term off
+
+select case '&selection.'          
+       when '1' then '@test1.sql'  
+       when '2' then '@test2.sql'  
+       else '@FinalAssignment.sql' -
+       end as script  
+
+from dual; 
+
+set term on
+end Menu;
+
+                                                                                                                                                                             
+                                                                    
+   codigo := & codigo;
+
+Select * into datos from empleado
+ where Cod_Empleado = codigo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

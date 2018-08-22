@@ -1,0 +1,39 @@
+CASO DE ESTUDIO 1
+
+SANTIAGO ANGULO, CARLOS ANDRES RODRIGUEZ
+
+Cajeros:
+
+
+1. select cajeros.NomApels, productos.precio, productos.noombre, maquinas_registradora.piso
+   from cajeros, venta, productos, maquinas_registradoras where cajeros.codigo=venta.cajero and
+   venta.producto=productos.codigo and cajeros.codigo=productos.codigo and productos.codigo=maquinas_registradoras.codigo 
+   and cajeros.codigo in(select cajeros.NomApels, cajeros.codigo from venta) and 
+   productos.codigo in(select productos.nombre, producto.precio from venta) and
+   maquinas_registradoras.codigo in(select maquinas_registradoras.piso from venta);
+
+
+2. select maquinas_registradoras.piso, sum(ventas.productos) from maquinas_registradoras, ventas, productos
+   where maquinas_registradoras.codigo=ventas.codigo and venta.producto=productos.codigo
+   group by ventas.producto, maquinas_registradoras.piso;
+
+
+3. select cajeros.*, sum(venta.cajero) from cajeros, venta
+   where cajeros.codigo=ventas.cajero and cajeros.codigo in(select cajeros.codigo, cajeros.NomApels from venta)
+   grop by cajeros.codigo, cajeros.NomApels; 
+      
+
+4. select cajeros.*, maquinas_registradoras.piso, sum(venta.cajero) from cajeros, venta, maquinas_registradoras
+   where cajeros.codigo=ventas.cajero and venta.maquina=maquinas_registradoras.codigo 
+   and cajeros.codigo in(select cajeros.codigo, cajeros.NomApels from venta)
+   and maquinas_registradoras.codigo in(select maquinas_registradoras.piso=venta.maquina from venta)
+   and venta.producto in(select venta.producto<50000 from venta)
+   gruop by cajeros.codigo, cajeros.NomApels, maquinas_registradoras.piso
+
+
+5. select venta.producto, maquinas_registradoras.piso, sum(venta.producto)
+   where venta.maquina=maquinas_registradoras.codigo
+   group by venta.producto, maquinas_registradoras.piso;
+
+
+ 

@@ -1,0 +1,4 @@
+David y Erick = Solicitante
+Anaya = Tramite y todos los catalogos que van van asignados a solicitante y su respectivo catalogo de Tramite 
+Carlos y Santiago = Dependencia y responsable_tramite y sus respectivos catalogos
+Julian y Trejos = Revision, Seguimiento con sus catalogos

@@ -12,9 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('create');
 });
 
-Route::resource('tramites','TramitesControlador');
-/* El recurso tramites es un nombre de una ruta dada  para poder acceder a los recurso del controlador*/
-    
+Route::resource('solicitante','SolicitanteControlador');
+Route::resource('tramite','TramitesControlador');
+
+/* El recurso tramites es un nombre de una ruta dada  para poder acceder a los recursos del controlador*/

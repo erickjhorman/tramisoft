@@ -4,7 +4,7 @@ namespace tramisoft\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TramitesControlador extends Controller
+class SolicitanteControlador extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class TramitesControlador extends Controller
      */
     public function index()
     {
-        
+    
     }
 
     /**
@@ -23,9 +23,9 @@ class TramitesControlador extends Controller
      */
     public function create()
     {
-        return view('tramite.create');
         
-;
+        return view('Solicitante.create');
+         
     }
 
     /**
