@@ -1,10 +1,9 @@
 <?php
 
-namespace tramisoft\Http\Controllers;
-
+namespace tramisoft\Http\Controllers\catalogos;
 use Illuminate\Http\Request;
 
-class SolicitanteControlador extends Controller
+class ComunaControlador extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +12,7 @@ class SolicitanteControlador extends Controller
      */
     public function index()
     {
-    
+        //
     }
 
     /**
@@ -23,9 +22,7 @@ class SolicitanteControlador extends Controller
      */
     public function create()
     {
-        
-        return view('Solicitante.create');
-         
+        //
     }
 
     /**
@@ -36,9 +33,7 @@ class SolicitanteControlador extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all(); 
-        /** Este metodo retorna todo el request */
-        return $request->input('identificacion');
+        //
     }
 
     /**

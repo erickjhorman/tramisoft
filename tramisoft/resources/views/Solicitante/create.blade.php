@@ -1,3 +1,4 @@
+
 @extends('layouts.solicitante')
 
 @section('title' , 'Registro solicitante')
@@ -12,18 +13,3 @@
  	<button type="sumit" class="btn btn-primary">Guardar</button>
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
