@@ -17,7 +17,13 @@ php artisan make:model estadoCivil --migration
 php artisan make:model tipoPersona --migration
 php artisan make:model ocupacion --migration
 php artisan make:model nacionalidad --migration
+<<<<<<< HEAD
 php artisan make:model departamento --migration
+=======
+php artisan make:model departamento --migration con llave foranea 
+
+
+>>>>>>> desarrollo
 php artisan make:model eps --migration
 php artisan make:model tipoIdentificacion --migration
 php artisan make:model ciudad --migration
@@ -30,5 +36,33 @@ php artisan make:model vivienda --migration
 php artisan make:model solicitante --migration
 Se crearon las migraciones 
 
+<<<<<<< HEAD
 Se crea controlador 
 php artisan make:controller estadoCivilControlador --resource
+=======
+php artisan make:migration create_test_table --path=database/migrations/Module1
+
+Se crea controlador 
+php artisan make:controller EstadoCivilControlador --resource   ok
+php artisan make:controller TipoPersonaControlador --resource
+php artisan make:controller OcupacionControlador --resource
+php artisan make:controller NacionalidadControlador --resource
+php artisan make:controller DepartamentoControlador --resource
+php artisan make:controller EpsControlador --resource
+php artisan make:controller TipoIdentificacionControlador --resource
+php artisan make:controller EstratoControlador --resource
+php artisan make:controller ComunaControlador --resource
+php artisan make:controller BarrioControlador --resource
+php artisan make:controller MedioRespuestaControlador --resource
+php artisan make:controller generoControlador --resource
+php artisan make:controller viviendaControlador --resource
+https://laraveles.com/migraciones-en-laravel/
+
+Se ejecutan migraciones 
+php artisan migrate --path=database/migrations/catalogos
+php artisan migrate:rollback --path=database/migrations/catalogos
+
+https://www.youtube.com/watch?v=8R5fYk5AsgQ
+https://www.youtube.com/watch?v=VfAeezOc4W4&t=1254s
+https://www.youtube.com/watch?v=l03fQ6XNZA4
+>>>>>>> desarrollo
