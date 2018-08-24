@@ -11,3 +11,24 @@ Se creo la vista para crear el solicitante llamada cSolicitante
 
 Se creo controlador solicitante 
 php artisan make:controller SolicitanteControlador --resource
+
+23/08/2018
+php artisan make:model estadoCivil --migration
+php artisan make:model tipoPersona --migration
+php artisan make:model ocupacion --migration
+php artisan make:model nacionalidad --migration
+php artisan make:model departamento --migration
+php artisan make:model eps --migration
+php artisan make:model tipoIdentificacion --migration
+php artisan make:model ciudad --migration
+php artisan make:model estrato --migration
+php artisan make:model comuna --migration
+php artisan make:model barrio --migration
+php artisan make:model medioRespuesta --migration
+php artisan make:model genero --migration
+php artisan make:model vivienda --migration
+php artisan make:model solicitante --migration
+Se crearon las migraciones 
+
+Se crea controlador 
+php artisan make:controller estadoCivilControlador --resource
