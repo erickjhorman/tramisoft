@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEstratosTable extends Migration
+class CreateBarriosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateEstratosTable extends Migration
      */
     public function up()
     {
-        Schema::create('estratos', function (Blueprint $table) {
+        Schema::create('barrios', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('idComuna');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateEstratosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estratos');
+        Schema::dropIfExists('barrios');
     }
 }

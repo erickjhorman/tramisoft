@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComunasTable extends Migration
+class CreateEstratosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateComunasTable extends Migration
      */
     public function up()
     {
-        Schema::create('comunas', function (Blueprint $table) {
+        Schema::create('estratos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nivel');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateComunasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comunas');
+        Schema::dropIfExists('estratos');
     }
 }
