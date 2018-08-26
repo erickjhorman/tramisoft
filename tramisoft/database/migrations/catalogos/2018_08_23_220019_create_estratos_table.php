@@ -15,6 +15,7 @@ class CreateEstratosTable extends Migration
     {
         Schema::create('estratos', function (Blueprint $table) {
             $table->increments('id');
+             $table->integer('nivel');
             $table->timestamps();
         });
     }
