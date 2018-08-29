@@ -71,8 +71,17 @@ https://www.youtube.com/watch?v=l03fQ6XNZA4
 
 
 Se crean migraciones para la llave foranea.
+<<<<<<< HEAD
 crear migracion carpeta especifica
 php artisan make:migration create_test_table --path=database/migrations/Module1
 php artisan make:migration add_nacionalidad_id_to_departamentos  --path=database/migrations/catalogos_llaveForanea
 php artisan migrate --path=database/migrations/catalogos_llaveForanea
 php artisan migrate:rollback --path=database/migrations/catalogos_llaveForanea 
+=======
+php artisan make:migration eps --migration  ok
+
+
+Commands 
+php artisan migrate --path=database/migrations/catalogos
+php artisan migrate:refresh --path=database/migrations/catalogos
+>>>>>>> desarrollo

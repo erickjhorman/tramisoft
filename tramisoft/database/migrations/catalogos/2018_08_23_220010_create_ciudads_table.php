@@ -13,13 +13,23 @@ class CreateCiudadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ciudads', function (Blueprint $table) {
+            Schema::create('ciudads', function (Blueprint $table) {
             $table->increments('id');
+<<<<<<< HEAD
             $table->integer('idDepartamento');
 <<<<<<< HEAD:tramisoft/database/migrations/catalogos/2018_08_23_220010_create_ciudads_table.php
             $table->string('nombre');
 =======
 >>>>>>> desarrollo:tramisoft/database/migrations/catalogos/2018_08_23_220010_create_ciudads_table.php
+=======
+            
+            // LLave foranea
+            $table->unsignedInteger('idDepartamento');
+            $table->foreign('idDepartamento')->references('id')->on('departamentos');
+
+           
+            $table->string('nombre');
+>>>>>>> desarrollo
             $table->timestamps();
         });
     }

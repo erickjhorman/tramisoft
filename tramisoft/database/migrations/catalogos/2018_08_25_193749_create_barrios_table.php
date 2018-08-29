@@ -15,7 +15,12 @@ class CreateBarriosTable extends Migration
     {
         Schema::create('barrios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idComuna');
+            
+            // LLave foranea
+            $table->unsignedInteger('idComuna');
+            $table->foreign('idComuna')->references('id')->on('comunas');
+            
+
             $table->string('nombre');
             $table->timestamps();
         });
