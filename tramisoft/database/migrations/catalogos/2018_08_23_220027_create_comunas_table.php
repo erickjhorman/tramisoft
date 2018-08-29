@@ -15,7 +15,12 @@ class CreateComunasTable extends Migration
     {
         Schema::create('comunas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idCiudad');
+           
+            
+            // LLave foranea
+            $table->unsignedInteger('idCiudad');
+            $table->foreign('idCiudad')->references('id')->on('ciudads');
+            
             $table->string('comunaNivel');
             $table->timestamps();
         });

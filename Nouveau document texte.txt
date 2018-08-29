@@ -70,3 +70,8 @@ https://www.youtube.com/watch?v=l03fQ6XNZA4
 
 Se crean migraciones para la llave foranea.
 php artisan make:migration eps --migration  ok
+
+
+Commands 
+php artisan migrate --path=database/migrations/catalogos
+php artisan migrate:refresh --path=database/migrations/catalogos

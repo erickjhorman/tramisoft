@@ -13,9 +13,15 @@ class CreateCiudadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ciudads', function (Blueprint $table) {
+            Schema::create('ciudads', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idDepartamento');
+            
+            // LLave foranea
+            $table->unsignedInteger('idDepartamento');
+            $table->foreign('idDepartamento')->references('id')->on('departamentos');
+
+           
+            $table->string('nombre');
             $table->timestamps();
         });
     }
