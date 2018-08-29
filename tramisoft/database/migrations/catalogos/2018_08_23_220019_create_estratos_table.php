@@ -15,7 +15,11 @@ class CreateEstratosTable extends Migration
     {
         Schema::create('estratos', function (Blueprint $table) {
             $table->increments('id');
+<<<<<<< HEAD:tramisoft/database/migrations/catalogos/2018_08_23_220019_create_estratos_table.php
              $table->integer('nivel');
+=======
+            $table->string('nivel');
+>>>>>>> desarrollo:tramisoft/database/migrations/catalogos/2018_08_23_220019_create_estratos_table.php
             $table->timestamps();
         });
     }

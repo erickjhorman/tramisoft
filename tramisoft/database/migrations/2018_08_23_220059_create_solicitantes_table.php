@@ -15,13 +15,18 @@ class CreateSolicitantesTable extends Migration
     {
         Schema::create('solicitantes', function (Blueprint $table) {
             $table->increments('id');
+<<<<<<< HEAD
             $table->integer('idPersona');
+=======
+            $table->integer('idPersona')->nullable();
+>>>>>>> desarrollo
             $table->integer('idIdentificacion');
             $table->string('numeroIdentificacion');
             $table->integer('idGenero');
             $table->string('nombre');
             $table->string('apellido');
             $table->string('celular');
+<<<<<<< HEAD
             $table->string('telefono');
             $table->string('correo');
             $table->timestamps('fechaR');
@@ -35,6 +40,21 @@ class CreateSolicitantesTable extends Migration
             $table->integer('idEstadoCivil')->nullable()->change();;
             $table->integer('idOcupacion')->nullable()->change();;
             $table->integer('idEps')->nullable()->change();;
+=======
+            $table->string('telefono')->nullable();
+            $table->string('correo');
+            $table->timestamp('fechaR');
+            $table->integer('idNacionalidad');
+            $table->integer('idDepartamento');
+            $table->integer('idCiudad');
+            $table->integer('idComuna')->nullable();
+            $table->integer('idBarrio')->nullable();
+            $table->integer('idVivienda')->nullable();
+            $table->integer('idEstrato')->nullable();
+            $table->integer('idEstadoCivil')->nullable();
+            $table->integer('idOcupacion')->nullable();
+            $table->integer('idEps')->nullable();
+>>>>>>> desarrollo
         });
     }
 

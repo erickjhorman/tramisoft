@@ -13,10 +13,10 @@ Se creo controlador solicitante
 php artisan make:controller SolicitanteControlador --resource
 
 23/08/2018
-php artisan make:model estadoCivil --migration
-php artisan make:model tipoPersona --migration
-php artisan make:model ocupacion --migration
-php artisan make:model nacionalidad --migration
+php artisan make:model estadoCivil --migration  ok
+php artisan make:model tipoPersona --migration  ok 
+php artisan make:model ocupacion --migration ok 
+php artisan make:model nacionalidad --migration ok
 <<<<<<< HEAD
 php artisan make:model departamento --migration
 =======
@@ -24,14 +24,14 @@ php artisan make:model departamento --migration con llave foranea
 
 
 >>>>>>> desarrollo
-php artisan make:model eps --migration
-php artisan make:model tipoIdentificacion --migration
+php artisan make:model eps --migration  ok
+php artisan make:model tipoIdentificacion --migration ok
 php artisan make:model ciudad --migration
 php artisan make:model estrato --migration
 php artisan make:model comuna --migration
 php artisan make:model barrio --migration
 php artisan make:model medioRespuesta --migration
-php artisan make:model genero --migration
+php artisan make:model genero --migration 
 php artisan make:model vivienda --migration
 php artisan make:model solicitante --migration
 Se crearon las migraciones 
@@ -44,7 +44,7 @@ php artisan make:migration create_test_table --path=database/migrations/Module1
 
 Se crea controlador 
 php artisan make:controller EstadoCivilControlador --resource   ok
-php artisan make:controller TipoPersonaControlador --resource
+php artisan make:controller TipoPersonaControlador --resource   ok
 php artisan make:controller OcupacionControlador --resource
 php artisan make:controller NacionalidadControlador --resource
 php artisan make:controller DepartamentoControlador --resource
@@ -61,8 +61,18 @@ https://laraveles.com/migraciones-en-laravel/
 Se ejecutan migraciones 
 php artisan migrate --path=database/migrations/catalogos
 php artisan migrate:rollback --path=database/migrations/catalogos
+php artisan migrate:refresh --path=database/migrations/catalogos
+php artisan migrate fresh  para crear todas las tablas desde el inicio
 
 https://www.youtube.com/watch?v=8R5fYk5AsgQ
 https://www.youtube.com/watch?v=VfAeezOc4W4&t=1254s
 https://www.youtube.com/watch?v=l03fQ6XNZA4
 >>>>>>> desarrollo
+
+
+Se crean migraciones para la llave foranea.
+crear migracion carpeta especifica
+php artisan make:migration create_test_table --path=database/migrations/Module1
+php artisan make:migration add_nacionalidad_id_to_departamentos  --path=database/migrations/catalogos_llaveForanea
+php artisan migrate --path=database/migrations/catalogos_llaveForanea
+php artisan migrate:rollback --path=database/migrations/catalogos_llaveForanea 
