@@ -18,4 +18,5 @@ Route::get('/', function () {
 Route::resource('solicitante','SolicitanteControlador');
 Route::resource('tramite','TramitesControlador');
 
+
 /* El recurso tramites es un nombre de una ruta dada  para poder acceder a los recursos del controlador*/
