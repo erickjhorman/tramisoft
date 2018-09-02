@@ -5,9 +5,6 @@
 @section('content')  <!-- Section y endsection son directivas para poner info del body de la pagina-->
 
 
- 
-
-
  <form method="POST" action="/solicitante">
  	@csrf <!-- Directriz para proteger los formularios de falsificacion de registros-->
   <div class="form-row" >
@@ -71,21 +68,30 @@
     <input type="email" class="form-control" name="correo" id="Correo" placeholder="Correo">
   </div>
   
-  <div class="form-group col-md-6">
+    <div class="form-group col-md-6">
      <label for="nacionalidad">Nacionalidad</label>
      
-            <select class="form-control">
+            <select class="form-control" name="nacionalidades" id="Naci" >
                 @foreach($Nacionalidades as $na)
-                <option>{{$na->nombre}}</option>
+                <option value="{{$na->id}}">{{$na->nombre}}</option>
                 @endforeach
+                
             </select>
           <!-- nacionalidad es el nombre del select-->
     </div>
 
+
+
     <div class="form-group col-md-6">
-     <label for="departamento">Departamento</label>
-      {!! Form::select('departamento') !!} <!-- departamento es el nombre del select-->
+     <label for="nacionalidad">Departamento</label>
+     
+            <select class="form-control" name="departamento" id="Departamento" >
+              <option value="o" disabled="true" selected="true">Selecione un departamento</option>  
+                
+            </select>
+          <!-- nacionalidad es el nombre del select-->
     </div>
+
 
     <div class="form-group col-md-6">
      <label for="ciudad">Ciudad</label>
@@ -154,6 +160,7 @@
 </div>
 </form>
  	
+ 
  
 
 

@@ -18,5 +18,9 @@ Route::get('/', function () {
 Route::resource('solicitante','SolicitanteControlador');
 Route::resource('tramite','TramitesControlador');
 
-
 /* El recurso tramites es un nombre de una ruta dada  para poder acceder a los recursos del controlador*/
+
+// Las route get me permite obtener los datos filtatos se especifica el recurso con la ide como parametro y el controlado y la funcion creada
+Route::get('/json-departamentos','SolicitanteControlador@getDepartamentos');
+
+//getdepartamentos es el metodo creado en el modelo de la tabla

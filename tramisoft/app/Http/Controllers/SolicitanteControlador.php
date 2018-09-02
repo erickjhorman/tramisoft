@@ -1,12 +1,14 @@
 <?php
 
+
 namespace tramisoft\Http\Controllers;
 //use App\http\Controllers\Controller;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use Illuminate\Support\fecades\Input;
 use DB;
-// use App\departamento;
-
-
+use App\departamento;
+use App\nacionalidads;
+use Request;
 
 class SolicitanteControlador extends Controller
 {
@@ -28,10 +30,11 @@ class SolicitanteControlador extends Controller
     public function create()
     {
         $Nacionalidades = DB::table('nacionalidads')->select('nombre','id')->get();
+
         /** Creamos una variable donde guardamos la lista del modelo con los datos obtenidos de base de datos*/
         
         $tipopersona = DB::table('tipo_personas')->select('nombre','id')->get();
-        $Departamentos = DB::table('departamentos')->select('nombre','id')->get();
+        $Departamentos = DB::table('departamentos')->select('nombre','idNacionalidad')->get();
         $identificacion = DB::table('tipo_identificacions')->select('tipoIdentificacion','id')->get();
         $genero = DB::table('generos')->select('tipoGenero','id')->get();
         $comunas = DB::table('comunas')->select('comunaNivel','id')->get();
@@ -40,12 +43,20 @@ class SolicitanteControlador extends Controller
         $estadoCivil = DB::table('estado_civils')->select('nombre','id')->get();
         $ocupacion = DB::table('ocupacions')->select('nombre','id')->get();
         $eps = DB::table('eps')->select('nombre','id')->get();
+
+
         
+
         
         return view('Solicitante.create', compact('tipopersona','Nacionalidades','Departamentos' , 'identificacion','genero','comunas','viviendas' ,'estratos','estadoCivil','ocupacion','eps'));
-
-         
-    }
+        }
+         // Funciones para el filtrado por ajax de los catalogos
+        public  function getDepartamentos(){
+           $idNacionalidad = Request::get('idNacionalidad');
+           $DeperFiltrados = DB::table('departamentos')->where('idNacionalidad' ,'=', $idNacionalidad)->get();
+            return response()->json($DeperFiltrados);
+        }
+   
 
     /**
      * Store a newly created resource in storage.

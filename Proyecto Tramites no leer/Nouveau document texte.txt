@@ -1,0 +1,11 @@
+Hola:
+Con la conexion a 1 de las bases de datos,
+ejecuta una consulta como esta:
+
+SELECT BASE1.dbo.TABLA1.CAMPO1, BASE2.dbo.TABLA2.CAMPO2
+FROM BASE1.dbo.TABLA1
+INNER JOIN BASE2.dbo.TABLA2 ON BASE2.dbo.TABLA2.CAMPO2.ID=BASE1.dbo.TABLA1.ID
+
+Espero que te sirva
+Un saludo desde Bilbo
+Carlos

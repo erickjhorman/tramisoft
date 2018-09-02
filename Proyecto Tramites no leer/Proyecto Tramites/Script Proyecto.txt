@@ -1,0 +1,535 @@
+Create database software_Tramite;
+use software_Tramite;
+
+Tablas--------
+
+create table Tipo_Persona(
+
+id_Tipo_Persona int(3) auto_increment primary key not null,
+
+Tipo_Persona varchar(30) not null check(tipo_persona
+ 
+in('Persona_Juridica','Persona_Natural')));
+)engine=innoDB;
+
+create table Identificacion(
+
+id_Identificacion int(3) auto_increment primary key not null,
+
+Tipo_Id varchar(10) not null check( Tipo_Id in('C.D.', 'C.E.', 'T.I.', 'NIT', 'Otro'))
+
+)engine=innoDB;
+
+create table Estrato(
+
+id_Estrato int(3) auto_increment primary key not null,
+
+Nivel_Estrato int(3) not null
+
+)engine=innoDB;
+
+create table Vivienda(
+
+id_Vivienda int(3) auto_increment primary key not null
+,
+Tipo_Vivienda varchar(30) not null
+
+)engine=innoDB;
+
+create table EstudioN(
+
+id_EstudioN int(3) auto_increment primary key not null,
+
+Nivel_EstudioN varchar(30) not null check(Nivel_Estudio in('Primaria', 
+
+'bachiller', 'tecnico', 'tecnologo', 'profesional') )
+
+)engine=innoDB;
+
+
+create table Genero(
+
+id_Genero int(3) auto_increment primary key not null,
+Tipo_Genero varchar(30) not null check(Tipo_Genero in('Masculino', 
+
+'Femenino', 'Neutro', 'Otro'))
+
+)engine=innoDB;
+
+create table Etnia(
+
+id_Etnia int(3) auto_increment primary key not null,
+
+Tipo_Etnia varchar(30) not null check(Tipo_Etnia in('Mestizos',
+
+'Blancos','Afrocolombianos','Indigenas'))
+
+)engine=innoDB;
+
+create table Estado_Civil(
+
+id_Estado_Civil int(3) auto_increment primary key not null,
+
+Estado_Civil varchar(30) not null check(Estado_Civil in('Soltero',
+
+'Casado', 'Divorciado', 'Viudo', 'Union Libre'))
+
+)engine=innoDB;
+
+
+create table Ocupacion(
+
+id_Ocupacion int(3) auto_increment primary key not null,
+
+Ocupacion varchar(30) not null
+
+)engine=innoDB;
+
+create table Eps(
+
+id_Eps int(3) auto_increment primary key not null,
+
+Eps varchar(30) not null
+
+)engine=innoDB;
+
+create table Sangre(
+
+id_Sangre int(3) auto_increment primary key not null,
+
+Tipo_Sangre varchar(30) not null
+
+)engine=innoDB;
+
+create table Barrio(
+
+id_Barrio int(3) auto_increment primary key not null,
+
+Nombre_Barrio varchar(30) not null
+
+)engine=innoDB;
+
+create table Comuna(
+
+id_Comuna int(3) auto_increment primary key not null,
+
+id_Barrio int(3) not null,
+Comuna_Nivel int(3) not null,
+
+foreign key(id_Barrio) references Barrio(id_Barrio)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Ciudad(
+
+id_Ciudad int(3) auto_increment primary key not null,
+
+id_Comuna int(3) not null,
+
+Nombre_Ciudad varchar(30) not null,
+
+foreign key(id_Comuna) references Comuna(id_Comuna)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Departamento(
+
+id_Departamento int(3) auto_increment primary key not null,
+
+id_Ciudad int(3) not null,
+
+Nombre_Departamento varchar(30) not null,
+
+foreign key(id_Ciudad) references Ciudad(id_Ciudad)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Nacionalidad(
+
+id_Nacionalidad int(3) auto_increment not null primary key,
+
+id_Departamento int(3) not null,
+
+Nombre_Nacion varchar(30) not null,
+
+foreign key(id_Departamento) references Departamento(id_Departamento)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+
+create table Solicitante(
+
+id_Solicitante int(3) auto_increment not null primary key,
+
+Nombre varchar(30) not null,
+
+Apellidos varchar(50) not null,
+
+Telefono varchar(30) not null,
+
+Celular varchar(30) not null,
+
+Correo varchar(40) not null,
+
+id_Nacionalidad int(3) not null,
+
+id_Tipo_Persona int(3) not null,
+
+id_Identificacion int(3) not null,
+
+id_Estrato int(3) not null,
+
+id_Vivienda int(3) not null,
+
+id_EstudioN int(3) not null,
+
+id_Genero int(3) not null,
+
+id_Etnia int(3) not null,
+
+id_Estado_Civil int(3) not null,
+
+id_Ocupacion int(3) not null,
+
+id_Eps int(3) not null,
+
+id_Sangre int(3) not null,
+
+foreign key(id_Nacionalidad) references Nacionalidad(id_Nacionalidad)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Tipo_Persona) references Tipo_Persona(id_Tipo_Persona)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Identificacion) references Identificacion(id_Identificacion)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Estrato) references Estrato(id_Estrato)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Vivienda) references Vivienda(id_Vivienda)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_EstudioN) references EstudioN(id_EstudioN)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Genero) references Genero(id_Genero)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Etnia) references Etnia(id_Etnia)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Estado_Civil) references Estado_Civil(id_Estado_Civil)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Ocupacion) references Ocupacion(id_Ocupacion)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Eps) references Eps(id_Eps)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Sangre) references Sangre(id_Sangre)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+
+create table Tipo_Tramite(
+
+id_Tipo_Tramite int(3) auto_increment not null primary key,
+
+Nombre_Tipo_Tramite varchar(30) not null
+
+)engine=innoDB;
+
+create table Dependencia(
+
+id_Dependencia int(3) auto_increment not null primary key,
+
+id_Tipo_Tramite int(3) not null,
+
+Nombre varchar(50) not null,
+
+Descripcion varchar(200) not null,
+
+foreign key(id_Tipo_Tramite) references Tipo_Tramite(id_Tipo_Tramite)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Responsable_Tramite(
+
+id_Responsable_T int(3) auto_increment not null primary key,
+
+Nombre_Responsable varchar(50) not null,
+
+Telefono varchar(20) not null,
+
+Cargo varchar(50) not null
+
+)engine=innoDB;
+
+
+create table Tramite(
+
+id_Tramite int(3) auto_increment not null primary key,
+
+Nombre_Tramite varchar(30) not null,
+
+Descripcion_Tramite varchar(200) not null,
+
+id_Dependencia int(3) not null,
+
+id_Responsable_Tramite int(3) not null,
+
+foreign key(id_Dependencia) references Dependencia(id_Dependencia)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Responsable_Tramite) references Responsable_Tramite(id_Responsable_T)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Responsable_Etapa(
+
+id_Responsable_Etapa int(3) auto_increment not null primary key,
+
+Nombre varchar(50) not null,
+
+Identificacion int(20) not null,
+
+Correo varchar(50) not null,
+
+Telefono varchar(20) not null
+
+)engine=innoDB;
+
+create table Etapa(
+
+id_Etapa int(3) auto_increment not null primary key,
+
+Descripcion_Etapa varchar(300) not null,
+
+Validacion varchar(20) not null,
+
+id_Tramite int(3) not null,
+
+id_Responsable_Etapa int(3) not null,
+
+foreign key(id_Tramite) references Tramite(id_Tramite)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Responsable_Etapa) references Responsable_Etapa(id_Responsable_Etapa)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Solicitud_Tramite(
+
+id_Solicitud_Tramite int(3) auto_increment not null primary key,
+
+id_Tipo_Tramite int(3) not null,
+
+id_Solicitante int(3) not null,
+
+Fecha_Tramite date,
+
+foreign key(id_Tipo_Tramite) references Tipo_Tramite(id_Tipo_Tramite)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Solicitante) references Solicitante(id_Solicitante)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Estado_Etapa(
+
+id_Estado_Etapa int(3) auto_increment not null primary key,
+
+id_Solicitud_Tramite int(3) not null,
+
+id_Responsable_Etapa int(3) not null,
+
+Fase varchar(30) not null,
+
+Descripcion varchar(100) not null,
+
+Observacion varchar(200) not null,
+
+foreign key(id_Solicitud_Tramite) references Solicitud_Tramite(id_Solicitud_Tramite)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Responsable_Etapa) references Responsable_Etapa(id_Responsable_Etapa)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Seguimiento_Etapa(
+id_Solicitud_Tramite int(3) not null,
+
+id_Etapa int(3) not null,
+
+Fase varchar(30) not null,
+
+N_Etapa varchar(30) not null,
+
+Descripcion varchar(100) not null,
+
+foreign key(id_Solicitud_Tramite) references Solicitud_Tramite(id_Solicitud_Tramite)
+ON 
+UPDATE CASCADE ON DELETE CASCADE,
+
+foreign key(id_Etapa) references Etapa(id_Etapa)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=innoDB;
+
+create table Rol(
+
+id_Rol int(3) auto_increment not null primary key,
+
+Nombre_Rol varchar(30) not null
+
+)engine=InnoDb;
+
+create table Acceso(
+
+id_Acceso int(3) auto_increment not null primary key,
+
+id_Rol int(3) not null,
+
+Nivel_De_Acceso varchar(30) not null,
+
+foreign key(id_Rol) references Rol(id_Rol)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=InnoDb;
+
+create table Usuario(
+
+id_Usuario int(3) auto_increment not null primary key,
+
+id_rol int(3) not null,
+
+Nombre_Empleado varchar(30) not null,
+
+Apellidos_Empleado varchar(35) not null,
+
+Identificacion int(30) not null,
+
+Nombre_Usuario varchar(30) not null,
+
+Contraseña_Usuario varchar(30) not null,
+
+Email varchar(30) not null,
+
+foreign key(id_rol) references rol(id_rol)
+ON 
+UPDATE CASCADE ON DELETE CASCADE
+
+)engine=InnoDb;
+----------------------------------------------------------------------------------------------------------------
+
+Notas 
+Cambiar nombre tabla verificar_etapa por seguimiento_etapa
+Quitar campos validacion
+Quitar el campo  validacion  de la tabla etapa 
+Crear check en tipo_persona
+cambiar nombre de nombre_tipo_tramite a varchar
+
+
+create table estado_tramite
+(id_estado_tramite int(3) not null auto_increment primary key,
+respuesta varchar(30) not null check(respuesta in('cancelado','en proceso','tramitado')
+));
+
+
+
+
+create table Identificacion(
+
+id_Identificacion int(3) auto_increment primary key not null,
+
+Tipo_Id varchar(10) not null check( Tipo_Id in('C.D.', 'C.E.', 'T.I.', 'NIT', 'Otro'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

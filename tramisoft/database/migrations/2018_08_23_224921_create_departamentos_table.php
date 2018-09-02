@@ -15,21 +15,11 @@ class CreateDepartamentosTable extends Migration
     {
         Schema::create('departamentos', function (Blueprint $table) {
             $table->increments('id');
-<<<<<<< HEAD:tramisoft/database/migrations/catalogos/2018_08_23_224921_create_departamentos_table.php
-            $table->integer('idNacionalidad');
-=======
-           
-            // LLave foranea
-            $table->unsignedInteger('idNacionalidad');
-            $table->foreign('idNacionalidad')->references('id')->on('nacionalidads');
             
->>>>>>> desarrollo:tramisoft/database/migrations/catalogos/2018_08_23_224921_create_departamentos_table.php
-            $table->string('nombre');
+            $table->string('nombre')->
             $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
