@@ -1,13 +1,12 @@
 <?php
-
-
 namespace tramisoft\Http\Controllers;
 //use App\http\Controllers\Controller;
-//use Illuminate\Http\Request;
+use tramisoft\solicitante;
+//Illuminate\Http\Request;
 use Illuminate\Support\fecades\Input;
 use DB;
-use App\departamento;
-use App\nacionalidads;
+//use App\departamento;
+//use App\nacionalidads;
 use Request;
 
 class SolicitanteControlador extends Controller
@@ -57,6 +56,13 @@ class SolicitanteControlador extends Controller
             return response()->json($DeperFiltrados);
         }
    
+       // Funciones para el filtrado por ajax de los catalogos de ciudad
+         public  function getCiudad(){
+           $idDepartamento = Request::get('idDepartamento');
+           $CiudadFiltrados = DB::table('ciudads')->where('idDepartamento' ,'=', $idDepartamento)->get();
+            return response()->json($CiudadFiltrados);
+        }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -69,19 +75,20 @@ class SolicitanteControlador extends Controller
         
         $Solicitante = new solicitante();  /** Se hace una instancia del modelo solicitante*/
         
-        $Solicitante->tipoPersona =$request->input('tipopersona');
-        $Solicitante->identificacion =$request->input('identificacion');
-        $Solicitante->genero =$request->input('genero');
-        $Solicitante->nombre =$request->input('nombre');
-        $Solicitante->numero =$request->input('numero');
-        $Solicitante->apellido =$request->input('apellido'); 
-        $Solicitante->celular =$request->input('celular');
-        $Solicitante->correo =$request->input('correo'); 
-        $Solicitante->nacionalidad =$request->input('nacionalidad');  
-        $Solicitante->departamento =$request->input('departamento'); 
-        $Solicitante->ciudad =$request->input('ciudad'); 
+        $Solicitante->nombre = $request->input('tipoPersona');
+        $Solicitante->Ididentificacion = $request->input('identificacion');
+        $Solicitante->numeroIdentificacion = $request->input('genero');
+        $Solicitante->Idgenero = $request->input('genero');
+        $Solicitante->nombre = $request->input('nombre');
+        $Solicitante->apellido = $request->input('apellido'); 
+        $Solicitante->celular = $request->input('celular');
+        $Solicitante->correo = $request->input('correo'); 
+        $Solicitante->Idnacionalidad = $request->input('nacionalidades');  
+        $Solicitante->Iddepartamento = $request->input('departamento'); 
+        $Solicitante->Idciudad = $request->input('ciudad'); 
        
         $Solicitante->save();
+        return 'Saved';
 
         /**return $request->all(); 
         /** Este metodo retorna todo el request 

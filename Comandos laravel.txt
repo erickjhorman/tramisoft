@@ -77,3 +77,21 @@ php artisan migrate --path=database/migrations/catalogos
 php artisan migrate:refresh --path=database/migrations/catalogos
 
 php artisan migrate:rollback
+
+
+
+
+Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('name',100);
+            $table->string('email',191)->unique();
+            $table->string('telphone', 12)->nullable();
+            $table->string('password')->nullable();
+            $table->integer('profesion_id')->unsigned();
+            $table->foreign('profesion_id')->references('id')->on('profesion_cliente');                
+            $table->string('url')->nullable();
+                $table->integer('rol_id')->unsigned();
+        $table->foreign('rol_id')->references('id')->on('roles');
+        $table->rememberToken();
+        $table->timestamps();
+        });

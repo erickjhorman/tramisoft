@@ -22,5 +22,6 @@ Route::resource('tramite','TramitesControlador');
 
 // Las route get me permite obtener los datos filtatos se especifica el recurso con la ide como parametro y el controlado y la funcion creada
 Route::get('/json-departamentos','SolicitanteControlador@getDepartamentos');
+Route::get('/json-ciudad','SolicitanteControlador@getCiudad');
 
 //getdepartamentos es el metodo creado en el modelo de la tabla

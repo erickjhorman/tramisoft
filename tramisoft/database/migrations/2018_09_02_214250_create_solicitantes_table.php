@@ -15,34 +15,35 @@ class CreateSolicitantesTable extends Migration
     {
         Schema::create('solicitantes', function (Blueprint $table) {
             $table->increments('id');
-
-
-            $table->unsignedInteger('idPersona')->nullable();
-            $table->integer('idIdentificacion');
+            $table->integer('idPersona')->nullable()->unsigned();
+            $table->integer('idIdentificacion')->unsigned();
             $table->string('numeroIdentificacion');
-            $table->integer('idGenero');
+            $table->integer('idGenero')->unsigned();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('celular');
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
             $table->string('correo');
-            $table->timestamps('fechaR');
-            $table->integer('idNacionalidad');
-            $table->integer('idDepartamento');
-            $table->integer('idCiudad');
-            $table->integer('idComuna')->nullable()->change();;
-            $table->integer('idBarrio')->nullable()->change();;
-            $table->integer('idVivienda')->nullable()->change();;
-            $table->integer('idEstrato')->nullable()->change();;
-            $table->integer('idEstadoCivil')->nullable()->change();;
-            $table->integer('idOcupacion')->nullable()->change();;
-            $table->integer('idEps')->nullable()->change();;
+            $table->integer('idNacionalidad')->unsigned();
+            $table->integer('idDepartamento')->unsigned();
+            $table->integer('idCiudad')->unsigned();
+            $table->integer('idComuna')->nullable()->unsigned();
+            $table->integer('idBarrio')->nullable()->unsigned();
+            $table->integer('idVivienda')->nullable()->unsigned();
+            $table->integer('idEstrato')->nullable()->unsigned();
+            $table->integer('idEstadoCivil')->nullable()->unsigned();
+            $table->integer('idOcupacion')->nullable()->unsigned();
+            $table->integer('idEps')->nullable()->unsigned();
+            $table->timestamps();
 
-
-            // Llaves foraneas
-            // Tabla personas
-            //$table->integer('idPersona')->nullable();
+            //Llaves foraneas
+            //Tabla personas
+            
             $table->foreign('idPersona')->references('id')->on('tipo_personas');
+
+             // Tabla identificacion
+            
+            $table->foreign('idIdentificacion')->references('id')->on('tipo_identificacions');
 
              // Tabla nacionalidad
             //$table->integer('idNacionalidad')
@@ -72,10 +73,13 @@ class CreateSolicitantesTable extends Migration
                // Tabla Ocupacion
              $table->foreign('idOcupacion')->references('id')->on('ocupacions');
 
+              // Tabla Genero
+             $table->foreign('idGenero')->references('id')->on('generos');
+
               // Tabla Eps
              $table->foreign('idEps')->references('id')->on('eps');
->>>>>>> desarrollo
-        });
+
+         });
     }
 
     /**

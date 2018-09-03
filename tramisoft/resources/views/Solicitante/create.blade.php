@@ -10,9 +10,10 @@
   <div class="form-row" >
      <div class="form-group col-md-6">
      <label for="tipoPersona">Tipo persona</label>
-        <select class="form-control">
+        <select class="form-control" name="tipoPersona">
                 @foreach($tipopersona as $per)
-                <option>{{$per->nombre}}</option>
+                <option  value="{{$per->id}}">{{$per->nombre}}</option>
+
                 @endforeach
             </select>
       </div>
@@ -20,9 +21,10 @@
 
     <div class="form-group col-md-6">
       <label for="identificacion">Tipo de dentificacion</label>
-     <select class="form-control">
+     <select class="form-control" name="identificacion">
                 @foreach($identificacion as $id)
-                <option>{{$id->tipoIdentificacion}}</option>
+                <option  value="{{$id->id}}">{{$id->tipoIdentificacion}}</option>
+                
                 @endforeach
       </select> <!-- identificacion es el nombre del select-->
     </div>
@@ -34,7 +36,7 @@
     
      <div class="form-group col-md-6">
      <label for="genero">Genero</label>
-       <select class="form-control">
+       <select class="form-control" name="genero">
                 @foreach($genero as $gen)
                 <option>{{$gen->tipoGenero}}</option>
                 @endforeach
@@ -70,11 +72,11 @@
   
     <div class="form-group col-md-6">
      <label for="nacionalidad">Nacionalidad</label>
-     
-            <select class="form-control" name="nacionalidades" id="Naci" >
+        <select class="form-control" name="nacionalidades" id="Naci" >
+              <option value="o" disabled="true" selected="true">Selecione una pais</option> 
                 @foreach($Nacionalidades as $na)
-                <option value="{{$na->id}}">{{$na->nombre}}</option>
-                @endforeach
+                <option  value="{{$na->id}}">{{$na->nombre}}</option>
+               @endforeach
                 
             </select>
           <!-- nacionalidad es el nombre del select-->
@@ -95,7 +97,10 @@
 
     <div class="form-group col-md-6">
      <label for="ciudad">Ciudad</label>
-      {!! Form::select('ciudad') !!} <!-- ciudad es el nombre del select-->
+     <select class="form-control" name="ciudad" id="idCiudad" >
+              <option value="o" disabled="true" selected="true">Selecione una ciudad</option>  
+                
+            </select>
     </div>
 
     {{-- <div class="form-group col-md-6">
