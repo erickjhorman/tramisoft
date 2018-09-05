@@ -38,7 +38,8 @@
      <label for="genero">Genero</label>
        <select class="form-control" name="genero">
                 @foreach($genero as $gen)
-                <option>{{$gen->tipoGenero}}</option>
+                
+              <option  value="{{$gen->id}}">{{$gen->tipoGenero}}</option>
                 @endforeach
       </select> <!-- identificacion es el nombre del select--> <!-- genero es el nombre del select-->
     </div>
@@ -58,12 +59,12 @@
   
   <div class="form-group col-md-6">
     <label for="celular">Celular</label>
-   <input type="text" class="form-control" id="celular" placeholder="Nº de celular">
+   <input type="text" class="form-control" id="celular" placeholder="Nº de celular" name="celular">
   </div>
- {{--  <div class="form-group col-md-6">
+  <div class="form-group col-md-6">
     <label for="telefono">Telefono</label>
    <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono">
-  </div> --}}
+  </div>
   
   <div class="form-group col-md-6">
     <label for="correo">Correo</label>

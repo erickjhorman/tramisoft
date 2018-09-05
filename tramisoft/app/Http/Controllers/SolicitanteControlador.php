@@ -1,13 +1,14 @@
 <?php
 namespace tramisoft\Http\Controllers;
+//use \Illuminate\Http\Request;
+
+use Request;
 //use App\http\Controllers\Controller;
 use tramisoft\solicitante;
-//Illuminate\Http\Request;
-use Illuminate\Support\fecades\Input;
+use Illuminate\Support\Facades\Input ;
 use DB;
-//use App\departamento;
-//use App\nacionalidads;
-use Request;
+
+
 
 class SolicitanteControlador extends Controller
 {
@@ -75,17 +76,18 @@ class SolicitanteControlador extends Controller
         
         $Solicitante = new solicitante();  /** Se hace una instancia del modelo solicitante*/
         
-        $Solicitante->nombre = $request->input('tipoPersona');
-        $Solicitante->Ididentificacion = $request->input('identificacion');
-        $Solicitante->numeroIdentificacion = $request->input('genero');
-        $Solicitante->Idgenero = $request->input('genero');
-        $Solicitante->nombre = $request->input('nombre');
-        $Solicitante->apellido = $request->input('apellido'); 
-        $Solicitante->celular = $request->input('celular');
-        $Solicitante->correo = $request->input('correo'); 
-        $Solicitante->Idnacionalidad = $request->input('nacionalidades');  
-        $Solicitante->Iddepartamento = $request->input('departamento'); 
-        $Solicitante->Idciudad = $request->input('ciudad'); 
+        $Solicitante->nombre = Input::get('tipoPersona');
+        $Solicitante->Ididentificacion = Input::get('identificacion');
+        $Solicitante->numeroIdentificacion = Input::get('genero');
+        $Solicitante->Idgenero =Input::get('genero');
+        $Solicitante->nombre = Input::get('nombre');
+        $Solicitante->apellido = Input::get('apellido'); 
+        $Solicitante->celular =Input::get('celular');
+        $Solicitante->telefono = Input::get('telefono');
+        $Solicitante->correo =Input::get('correo'); 
+        $Solicitante->Idnacionalidad = Input::get('nacionalidades');  
+        $Solicitante->Iddepartamento = Input::get('departamento'); 
+        $Solicitante->Idciudad = Input::get('ciudad'); 
        
         $Solicitante->save();
         return 'Saved';

@@ -1,7 +1,7 @@
 <?php
 
 namespace tramisoft\Http\Controllers;
-
+//use request;
 use Illuminate\Http\Request;
 
 class TramitesControlador extends Controller
