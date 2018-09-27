@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
-<link href="{{ asset('/css/solicitante.css') }}" rel="stylesheet">
+<link href="{{ asset('/css/tramite.css') }}" rel="stylesheet">
 
 
 
@@ -18,8 +18,10 @@
 <body>
       <div class="container">  
       	 @yield('content')
+      	 
 
           <!--Clase contenedor de boostrap-->
+
       </div>
       
 
@@ -30,8 +32,8 @@
 
 <script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.min.js') }}"></script> 
 <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script> 
-<script type="text/javascript" src="{{ URL::asset('js/filtrarCatalogos.js') }}"></script> 
-<script type="text/javascript" src="{{ URL::asset('js/validaciones_solicitante.js') }}"></script> 
+
+
 
 
 

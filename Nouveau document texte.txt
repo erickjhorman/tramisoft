@@ -77,3 +77,6 @@ php artisan migrate --path=database/migrations/catalogos
 php artisan migrate:refresh --path=database/migrations/catalogos
 
 php artisan migrate:rollback
+
+24/09/2018
+php artisan make:model tramite--migration

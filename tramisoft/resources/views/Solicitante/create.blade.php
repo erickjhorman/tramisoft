@@ -9,37 +9,46 @@
   @csrf 
   <div class="form-row">
      <div class="form-group col-md-6">
-     <label for="tipoPersona">Tipo persona</label>
+     <label for="tipoPersona" class="lblpersona"> Tipo persona</label>
       <select class="form-control" name="tipoPersona" id="persona" required>
-        <option value="o" disabled="true" selected="true">Selecione un tipo de persona</option>        
+        <option value="" >--Selecione un tipo de persona--</option>        
                @foreach($tipopersona as $per)
                 <option value="{{$per->id}}">{{$per->nombre}}</option>
                    
                 @endforeach
       </select>
+      <div id="mostrarPersona" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+     </div>
       </div>
   
  
     <div class="form-group col-md-6">
-      <label for="identificacion">Tipo de dentificacion</label>
+      <label for="identificacion" class="lblide">Tipo de dentificacion</label>
      <select class="form-control" name="identificacion" id="identificacion" required>
-      <option value="o" disabled="true" selected="true">Selecione un tipo de identificacion</option>  
+      <option value="" >--Selecione un tipo de identificacion--</option>  
                 @foreach($identificacion as $id)
                 <option  value="{{$id->id}}">{{$id->tipoIdentificacion}}</option>
                 
                 @endforeach
       </select> <!-- identificacion es el nombre del select-->
+      <div id="mostrarIdentificacion" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+     </div>
     </div>
 
 
       <div class="form-group col-md-6">
-      <label for="numero">Numero</label>
+      <label for="numero" class="lbnumero" >Numero</label>
         <input type="text" class="form-control" id="numero" placeholder="Ingrese el numero" name="numero"  required="">
+        <div id="mostrarNumero" class="texto">
+       <p>Este campo es obligatorio</p>
+        </div>
       </div>
    
 
      <div class="form-group col-md-6">
-     <label for="genero">Genero</label>
+     <label for="genero"  class="lbgenero">Genero</label>
        <select class="form-control" name="genero"  id="genero" required>
         <option value="o" disabled="true" selected="true">Selecione un tipo de genero</option>  
                 @foreach($genero as $gen)
@@ -47,73 +56,100 @@
               <option  value="{{$gen->id}}">{{$gen->tipoGenero}}</option>
                 @endforeach
       </select> <!-- identificacion es el nombre del select--> <!-- genero es el nombre del select-->
+      <div id="mostrarGenero" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+        </div>
     </div>
  
     
    <div class="form-group col-md-6 ">
-    <label for="nombre">Nombre</label>
+    <label for="nombre" class="lbnombre">Nombre</label>
    <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre" required>
-  </div>
-
+   <div id="mostrarNombre" class="texto">
+  <p>Este campo es obligatorio</p>
+   </div>
    
+  </div>
 
-    
- 
   <div class="form-group col-md-6">
-    <label for="apellido">Apellido</label>
+    <label for="apellido" class="lbapellido">Apellido</label>
    <input type="text" class="form-control" id="apellido" placeholder="apellido" name="apellido"  required>
+   <div id="mostrarApellido" class="texto">
+       <p>Este campo es obligatorio</p>
+        </div>
   </div>
   
   <div class="form-group col-md-6">
-    <label for="celular">Celular</label>
+    <label for="celular" class="lbcelular">Celular</label>
    <input type="text" class="form-control" id="celular" placeholder="Nº de celular" name="celular" required>
+   <div id="mostrarCelular" class="texto">
+  <p>Este campo es obligatorio</p>
+</div>
   </div>
 
 
   <div class="form-group col-md-6">
-    <label for="telefono">Telefono</label>
+    <label for="telefono" class="lbtelefono">Telefono</label>
    <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono">
+   <div id="mostrarTelefono" class="texto">
+  <p>Este campo es obligatorio</p>
+</div>
   </div>
   
 
 
    <div class="form-group col-md-6">
-    <label for="correo">Correo</label>
+    <label for="correo" class="lbcorreo">Correo</label>
     <input type="email" class="form-control" name="correo" id="Correo" placeholder="Correo" required>
+     <div id="mostrarCorreo" class="texto">
+  <p>Este campo es obligatorio</p>
+</div>
   </div>
  
 
    <div class="form-group col-md-6">
-     <label for="nacionalidad">Nacionalidad</label>
+     <label for="nacionalidad" class="lbnacio">Nacionalidad</label>
         <select class="form-control" name="nacionalidades" id="Naci" required="" >
-              <option value="o" disabled="true" selected="true">Selecione una pais</option> 
+              <option value="" >--Selecione una pais--</option> 
                 @foreach($Nacionalidades as $na)
                 <option  value="{{$na->id}}">{{$na->nombre}}</option>
                @endforeach
                 
         </select>
+         <div id="mostrarNaci" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+        </div>
           <!-- nacionalidad es el nombre del select-->
     </div>
 
   
 
      <div class="form-group col-md-6">
-     <label for="nacionalidad">Departamento</label>
+     <label for="nacionalidad" class="lbdepartamento">Departamento</label>
      
             <select class="form-control" name="departamento" id="Departamento" required>
-              <option value="o" disabled="true" selected="true">Selecione un departamento</option>  
+              <option value="">-- Selecione un departamento --</option>  
                 
             </select>
+            <div id="mostrarDepartamento" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+        </div>
           
      </div>
 
 
     <div class="form-group col-md-6">
-     <label for="ciudad">Ciudad</label>
+     <label for="ciudad" class="lbciudad">Ciudad</label>
      <select class="form-control" name="ciudad" id="idCiudad" required>
-              <option value="o" disabled="true" selected="true">Selecione una ciudad</option>  
+              <option value="" >--Selecione una ciudad --</option>  
       </select>
+         <div id="mostrarCiudad" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+        </div>
+          
     </div>
+
+
 
 
     {{--<div class="form-group col-md-6">

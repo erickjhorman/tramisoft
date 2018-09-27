@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<P>Modulo Julian anaya</P>
-</body>
-</html>
+@extends('layouts.tramite')
+
+@section('title' , 'Registro Tramite')
+@section('content')  <!-- Section y endsection son directivas para poner info del body de la pagina-->
+
+  @include('Tramite.modal_tramite')
+
+
+@endsection

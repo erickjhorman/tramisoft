@@ -1,0 +1,38 @@
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+.carousel-inner img {
+    width: 100%;
+    max-height: 460px;
+
+}
+
+.carousel-inner{
+ height: 400px;
+ padding-top: 20px;
+}
+
+.btn-outline-primary {
+    position:absolute;
+        left: 25%;
+    margin-top: 23px;  
+
+}
+
+/*Modal tramite*/
+.iframeTramite{
+
+  width: 15000px;
+  height: 1000px;
+  position: absolute;
+  float: right;
+}
+
+
