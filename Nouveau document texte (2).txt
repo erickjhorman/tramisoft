@@ -1,0 +1,3 @@
+https://jcvier.wordpress.com/2009/01/11/3-formas-de-obtener-el-id-del-ultimo-registro-ingresado-en-mysql-y-php-sql/
+https://es.stackoverflow.com/questions/41880/como-hacer-select-top-1-en-mysql-para-ultimo-registro
+consultar el ultimo registro de una tabla mysql
