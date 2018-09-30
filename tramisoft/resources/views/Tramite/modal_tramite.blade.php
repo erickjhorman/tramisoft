@@ -2,21 +2,34 @@
 <div class="row">
     <div class="col">
        <label for="nombre" class="lbnombre">Nombre</label>	
-      <input type="text" class="form-control" placeholder="Nombre">
+      
+       @foreach($solicitantes as $sol)
+                
+     <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="{{$sol->nombre}}">      
+                @endforeach
     </div>
     <div class="col">
       <label for="apellido" class="lblapellido">Apellido</label>	
-      <input type="text" class="form-control" placeholder="Apellido">
+       @foreach($solicitantes as $sol)
+                
+     <input type="text" class="form-control" placeholder="Apellido" name="apellido" value="{{$sol->apellido}}">      
+                @endforeach
+      
     </div>
   </div>
   <div class="row">
     <div class="col">
     	<label for="identificacion" class="lblidentificacion">Numero de identificacion</label>
-      <input type="text" class="form-control" placeholder="Numero de identificacion"> 
+       @foreach($solicitantes as $sol)
+                
+    <input type="text" class="form-control" placeholder="Numero de identificacion" name="identificacion" value="{{$sol->numeroIdentificacion}}">      
+                @endforeach
+
+      
     </div>
 
   </div>
-  <div class="row">
+  
     
 
       <div class="row">
@@ -33,7 +46,7 @@
      </div>
       </div>
      
-     </div>
+     
     <div class="row">
      <label for="medioRespuesta" class="lbRespuesta"> Medio de respuesta</label>
       <select class="form-control" name="medioRespuesta" id="medioRes" required>
