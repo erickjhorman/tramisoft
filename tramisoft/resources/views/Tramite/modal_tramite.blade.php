@@ -1,5 +1,11 @@
 <div>
 <div class="row">
+   <div class="col">
+       @foreach($solicitantes as $sol)
+                
+     <input type="hidden" placeholder="Nombre" name="id" value="{{$sol->id}}"  style="display:none">    
+      @endforeach
+    </div>
     <div class="col">
        <label for="nombre" class="lbnombre">Nombre</label>	
       
@@ -62,7 +68,7 @@
       </div>
 
     <div class="row">
-    	<label for="respuesta" class="lbObservaciones">Observaciones</label>
+    	<label for="respuesta" class="lbObservaciones" name="observaciones">Observaciones</label>
     	<textarea>
     		
     	</textarea>

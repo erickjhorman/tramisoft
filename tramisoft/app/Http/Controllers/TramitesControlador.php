@@ -5,6 +5,7 @@ namespace tramisoft\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Input;
+use tramisoft\tramiteTabla;
 
 class TramitesControlador extends Controller
 {
@@ -54,7 +55,16 @@ class TramitesControlador extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $tramite = new tramiteTabla();  /** Se hace una instancia del modelo solicitante*/
+        
+        $tramite->Solicitante_id = Input::get('id');
+        $tramite->CatalogoTramite_id = Input::get('tipoTramite');
+        $tramite->medioRespusta_id = Input::get('medioRespuesta');
+        $tramite->Description = Input::get('descripcion');
+     
+       
+        $tramite->save();
+        return 'Saved';
     }
 
     /**
