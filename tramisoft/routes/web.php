@@ -24,4 +24,5 @@ Route::resource('tramite','TramitesControlador');
 Route::get('/json-departamentos','SolicitanteControlador@getDepartamentos');
 Route::get('/json-ciudad','SolicitanteControlador@getCiudad');
 Route::get('/json-tipoTramite','TramitesControlador@getTramite');
+Route::get('/json-medioRespuesta','TramitesControlador@getTramite');
 //getdepartamentos es el metodo creado en el modelo de la tabla

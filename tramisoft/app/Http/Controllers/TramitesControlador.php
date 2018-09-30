@@ -26,10 +26,11 @@ class TramitesControlador extends Controller
     {
         
          $Tramite = DB::table('catalogo_tramites')->select('nombre','id')->get();
+          $medioRespuestas = DB::table('medio_respuestas')->select('nombre','id')->get();
 
 
 
-        return view('tramite.create', compact('Tramite'));
+        return view('tramite.create', compact('Tramite', 'medioRespuestas'));
         
 
     }
