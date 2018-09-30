@@ -3,6 +3,9 @@
 namespace tramisoft\Http\Controllers;
 //use request;
 use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Facades\Input;
+use tramisoft\tramiteTabla;
 
 class TramitesControlador extends Controller
 {
@@ -23,9 +26,25 @@ class TramitesControlador extends Controller
      */
     public function create()
     {
-        return view('tramite.create');
         
-;
+         //Consulta de id, nombre y numero de identificacion
+       
+           $solicitantes = DB::select('select id,nombre,apellido, numeroIdentificacion from solicitantes where id =(SELECT max(id) FROM solicitantes)');
+
+       
+
+         
+          
+          //return  $solicitantes; Retornar lo que trae la consulta
+        
+          $Tramite = DB::table('catalogo_tramites')->select('nombre','id')->get();
+          $medioRespuestas = DB::table('medio_respuestas')->select('nombre','id')->get();
+
+
+
+        return view('tramite.create', compact('Tramite', 'medioRespuestas', 'solicitantes'));
+        
+
     }
 
     /**
@@ -36,7 +55,16 @@ class TramitesControlador extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $tramite = new tramiteTabla();  /** Se hace una instancia del modelo solicitante*/
+        
+        $tramite->Solicitante_id = Input::get('id');
+        $tramite->CatalogoTramite_id = Input::get('tipoTramite');
+        $tramite->medioRespusta_id = Input::get('medioRespuesta');
+        $tramite->Description = Input::get('descripcion');
+     
+       
+        $tramite->save();
+        return 'Saved';
     }
 
     /**
