@@ -1,0 +1,76 @@
+/* To fix the bar  */
+body { padding-top: 70px; 
+
+}
+/* To put the asterisk of obligration in red */
+.form-group .lbTramite:after, .lbRespuesta:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 7px;
+   }
+
+ /* To create Tooltip */
+ div.texto {
+     color: red;
+     display: none;
+     position: absolute;
+}  
+
+nav{
+     margin-bottom: 20px;
+    position: fixed;
+}
+/* To create Tooltip */
+.form-group div.texto {
+     color: red;
+     display: none;
+     position: absolute;
+}
+
+/* Modificar datos de la lista de navegacion */
+.navbar span{
+	color: black;
+	position: absolute;
+	top: 1em;
+	left: 15em;
+}
+
+.navbar li{
+	color: black;
+	position: absolute;
+	left: 19em;
+	top: 1em;
+}
+
+.navbar span.Sapellido{
+	color: black;
+	position: absolute;
+	top: 1em;
+	left: 30em;
+}
+
+.navbar li.liApellido{
+	color: black;
+	position: absolute;
+	left: 34em;
+	top: 1em;
+}
+
+.navbar span.Snumero{
+	color: black;
+	position: absolute;
+	top: 1em;
+	left: 45em;
+}
+
+.navbar li.liNumero{
+	color: black;
+	position: absolute;
+	left: 57em;
+	top: 1em;
+}
+
+/* Final modificar datos de la lista de navegacion */
+

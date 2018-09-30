@@ -32,6 +32,7 @@
 
 <script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.min.js') }}"></script> 
 <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script> 
+<script type="text/javascript" src="{{ URL::asset('js/validaciones_tramite.js') }}"></script> 
 
 
 

@@ -82,6 +82,11 @@ php artisan migrate:rollback
 php artisan make:model tramite--migration
 
 29/09/2018
-php artisan migrate --path=database/migrations/catalogos/2018_09_29_203754_create_tramite.php
+php artisan migrate --path=app/database/migrations/catalogos/2018_09_29_203754_create_tramite.php
 php artisan make:migration create_tramite --path=database/migrations/catalogos
- php artisan migrate --path=tramisoft/database/migrations/2018_09_29_203754_create_tramite.php
+ php artisan migrate --path=app/database/migrations/2018_09_29_203754_create_tramite.php
+
+Medio de respuesta
+php artisan make:model medio_respuesta --migration
+crear tabla tramite
+php artisan make:model tramiteTabla --migration

@@ -1,7 +1,7 @@
 /* To put the asterisk of obligration in red */
 .form-group .lblpersona:after , .lblide:after  , .lbnumero:after , .lbgenero:after , .lbnombre:after 
 , .lbapellido:after , .lbcelular:after , .lbtelefono:after , .lbcorreo:after  , .lbnacio:after  , .lbdepartamento:after 
- , .lbciudad:after  {
+ , .lbciudad:after {
     color: #d00;
     content: "*";
     position: absolute;
