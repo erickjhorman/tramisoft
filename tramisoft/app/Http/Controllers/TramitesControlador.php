@@ -3,6 +3,7 @@
 namespace tramisoft\Http\Controllers;
 //use request;
 use Illuminate\Http\Request;
+use DB;
 
 class TramitesControlador extends Controller
 {
@@ -23,9 +24,14 @@ class TramitesControlador extends Controller
      */
     public function create()
     {
-        return view('tramite.create');
         
-;
+         $Tramite = DB::table('catalogo_tramites')->select('nombre','id')->get();
+
+
+
+        return view('tramite.create', compact('Tramite'));
+        
+
     }
 
     /**

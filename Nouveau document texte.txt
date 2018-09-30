@@ -80,3 +80,8 @@ php artisan migrate:rollback
 
 24/09/2018
 php artisan make:model tramite--migration
+
+29/09/2018
+php artisan migrate --path=database/migrations/catalogos/2018_09_29_203754_create_tramite.php
+php artisan make:migration create_tramite --path=database/migrations/catalogos
+ php artisan migrate --path=tramisoft/database/migrations/2018_09_29_203754_create_tramite.php

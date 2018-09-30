@@ -19,12 +19,20 @@
   <div class="row">
     
 
-    <div class="col">
-    	<label for="tramite" class="lbltramite">Tramite</label>
-    <select class="form-control" name="tramite" id="tramite" required>
-    	 <option value="" >--Selecione un tipo de tramite--</option>  
-    	  </select> <!-- identificacion es el nombre del select-->
-    </div>
+      <div class="row">
+     <label for="tipoTramite" class="lbTramite"> Tipo tramite</label>
+      <select class="form-control" name="tipoTramite" id="tramite" required>
+        <option value="" >--Selecione un tipo de tramite--</option>        
+               @foreach($Tramite as $tra)
+                <option value="{{$tra->id}}">{{$tra->nombre}}</option>
+                   
+                @endforeach
+      </select>
+      <div id="mostrarPersona" class="texto">
+       <p>Debe seleccionar un archivo de la lista</p>
+     </div>
+      </div>
+     
      </div>
      <div class="row">
     <div class="col">
