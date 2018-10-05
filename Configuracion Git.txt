@@ -95,3 +95,14 @@ $ git tag -a v0.1 -m "Version 0.1 de nuestro proyecto" 23af5b22eaf8cf34206466e9e
 $ git push origin --tags (Sirve para subir todos los tags)
 
 
+
+
+-----------------------------------Pasos para subir los cambios locales al repositorio de Git----------------------
+
+1- ) Nos ubicamos en la carpeta de nuestro proyecto, click dereho y git bash
+2- ) Luego ejecutamos el comando 'git status' para saber a que archivos se le han realizado modificaciones, resaltados en color rojo
+3- ) Posteriormente agregamos estas modificaciones con 'git add -A'
+4- ) Luego si es conveniente ejecutamos el comando 'git commit -m "Mensaje" ' para hacer una descripcion de que se realizo
+5- ) Finalmente usamos el comando 'git push origin 'Nombre-Rama', para subir correctamente a github
+
+
