@@ -29,7 +29,7 @@ class LoginControlador extends Controller
        ]);
 
     	if (Auth::attempt(['correoEmp'=> $credentials['correoEmp'] , 'password' => $credentials['contrasenaEmp'] ])) {//se autentica en la tabla users
-    
+        
 
             return view('perfil.index');
         }

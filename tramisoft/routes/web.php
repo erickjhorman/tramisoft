@@ -36,16 +36,7 @@ Route::post('login', 'login\LoginControlador@login')->name('login');
 Route::post('logout', 'login\LoginControlador@logout')->name('logout');
 Route::get('inicio/perfil','perfil\PerfilControlador@index')->name('perfil');
 //metodo para encriptar contraseñas ||  solo ejecutar 1 vez no recargar la pagina(actualizarla)
-Route::get('enc' , 'login\LoginControlador@encri');
-
-Route::get('/pre',function(){
-
-	$nivel = Usuario::where('correoEmp','brayancl098@gmail.com')->get();
-
-	foreach ($nivel as $nive) {
-		$ns = $nive->id;
-	}
-	$cargo = Usuario::find(1)->rol->nombreRol;
-
-	return $cargo;
-});
+/*Route::get('enc' , 'login\LoginControlador@encri');*/
+//Rutas complementarias del mudulo
+Route::get('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@index')->name('perfilusuario');
+Route::post('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@create')->name('ingresarusuario');
