@@ -40,3 +40,14 @@ Route::get('inicio/perfil','perfil\PerfilControlador@index')->name('perfil');
 //Rutas complementarias del mudulo
 Route::get('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@index')->name('perfilusuario');
 Route::post('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@create')->name('ingresarusuario');
+
+Route::get('/conseguir', function(){
+
+
+	$cargos  = Rol::All();
+
+	foreach ($cargos as $cargo) {
+		echo $cargo->nombreRol;
+	
+	}
+});

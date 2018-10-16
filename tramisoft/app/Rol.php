@@ -14,4 +14,8 @@ class Rol extends Model
 	{
 		return $this->hasOne("tramisoft\Usuario");
 	}
+	public function usuarios()
+	{
+		return $this->hasMany("tramisoft\Usuario");
+	}
 }

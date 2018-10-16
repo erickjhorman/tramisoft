@@ -50,8 +50,8 @@ class LoginControlador extends Controller
     }
     //metodo para encriptar las contraseñas
     public function encri(){
-    Usuario::get()->map(function ($usuario) {
-    return $usuario->update(['contrasenaEmp' => \Hash::make($usuario['contrasenaEmp'])]); 
+        Usuario::get()->map(function ($usuario) {
+        return $usuario->update(['contrasenaEmp' => \Hash::make($usuario['contrasenaEmp'])]); 
     });
 
     }
