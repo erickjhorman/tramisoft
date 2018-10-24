@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnSolicitanteUsuarioPassword extends Migration
+class AddColumnSolicitantePassword extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class AddColumnSolicitanteUsuarioPassword extends Migration
      */
     public function up()
     {
-        Schema::table('solicitantes', function (Blueprint $table) {
+          Schema::table('solicitantes', function (Blueprint $table) {
             
             $table->binary('contraseña')->after('idEps') ;
             $table->rememberToken();
             
           });
 
-     }       
+    }
 
     /**
      * Reverse the migrations.
@@ -29,11 +29,12 @@ class AddColumnSolicitanteUsuarioPassword extends Migration
      */
     public function down()
     {
-        chema::table('solicitantes', function (Blueprint $table) {
+         Schema::table('solicitantes', function (Blueprint $table) {
             
             $table->dropColumn('usuario');
-            $table->binary('contraseña');
+           
             
           });
+
     }
 }
