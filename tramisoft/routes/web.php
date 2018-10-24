@@ -1,5 +1,7 @@
 <?php
-
+use tramisoft\Usuario;
+use tramisoft\Rol;
+use tramisoft\vivienda;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +29,25 @@ Route::get('/json-ciudad','SolicitanteControlador@getCiudad');
 Route::get('/json-tipoTramite','TramitesControlador@getTramite');
 Route::get('/json-medioRespuesta','TramitesControlador@getTramite');
 //getdepartamentos es el metodo creado en el modelo de la tabla
+
+//rutas para el login
+Route::get('inicio' , 'login\LoginControlador@index')->name('inicio');
+Route::post('login', 'login\LoginControlador@login')->name('login');
+Route::post('logout', 'login\LoginControlador@logout')->name('logout');
+Route::get('inicio/perfil','perfil\PerfilControlador@index')->name('perfil');
+//metodo para encriptar contraseñas ||  solo ejecutar 1 vez no recargar la pagina(actualizarla)
+//Route::get('enc' , 'login\LoginControlador@encri');
+//Rutas complementarias del mudulo
+Route::get('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@index')->name('perfilusuario');
+Route::post('perfil/usuario','UsuarioPerfil\PerfilUsuarioControlador@create')->name('ingresarusuario');
+
+Route::get('/conseguir', function(){
+
+
+	$cargos  = Rol::All();
+
+	foreach ($cargos as $cargo) {
+		echo $cargo->nombreRol;
+	
+	}
+});
