@@ -1,0 +1,80 @@
+				<<<<<<<<<------Inserts Proyecto----->>>>>	by Julian Lozano
+
+
+<----Nacionalidad--------------------------------------------
+
+insert into nacionalidads (id,nombre)values ('2','Colombia');
+
+
+<----Departamentos--------------------------------------------
+
+insert into departamentos(id,idNacionalidad,nombre)values ('1','2','Valle del Cauca');
+
+
+<----Ciudades--------------------------------------------
+
+insert into ciudads (id,idDepartamento,nombre)values ('1','1','Cali');
+
+
+<----Comunas--------------------------------------------
+
+insert into comunas (id,idCiudad,comunaNivel) values ('1','1','2');
+
+
+<----Barrios--------------------------------------------
+
+insert into barrios (id,idComuna,nombre)values ('1','1','Agua Blanca');
+
+
+<----Eps--------------------------------------------
+
+insert into eps (id,nombre)values ('1','Sura');
+
+
+<----Estado Civil--------------------------------------------
+
+insert into estado_civils(id,nombre)values ('1','Soltero');
+
+
+<----Estratos--------------------------------------------
+
+insert into estratos(id,nivel)values ('1','2');
+
+
+<----Generos--------------------------------------------
+
+insert into generos(id,tipoGenero)values ('1','Masculino');
+
+
+<----Ocupacion--------------------------------------------
+
+insert into ocupacions(id,nombre)values ('1','Estudiante');
+
+
+<----Tipo de Identificacion--------------------------------------------
+
+insert into tipo_identificacions(id,tipoIdentificacion)values ('1','Cedula de Ciudadania');
+
+
+<----Tipo Personas--------------------------------------------
+
+insert into tipo_personas(id,nombre)values ('1','Persona Natural');
+
+
+<----Vivienda--------------------------------------------
+
+insert into viviendas(id,tipoVivienda)values ('1','Propia');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
