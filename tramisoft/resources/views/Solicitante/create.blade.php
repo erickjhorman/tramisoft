@@ -4,6 +4,21 @@
 @section('title' , 'Registro solicitante')
 @section('content')  <!-- Section y endsection son directivas para poner info del body de la pagina-->
 
+ <!-- Barra de navegacion-->
+<div class="container"> 
+<nav class="navbar navbar fixed-top  navbar-light bg-primary " role="navigation">
+ <div class="container-fluid">
+  <a class="navbar-brand" href="#">
+    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Bootstrap
+  </a>
+  
+    
+   </div>
+</nav>
+
+</div>  
+
 
  <form name="form1" method="POST" action="/solicitante">
   @csrf 
@@ -149,6 +164,23 @@
           
     </div>
 
+     <div class="form-group col-md-6 ">
+    <label for="nombre" class="lbnombre">Usuario</label>
+   <input type="text" class="form-control" id="nombre" placeholder="usuario" name="usuario" required>
+   <div id="" class="texto">
+  <p>Este campo es obligatorio</p>
+   </div>
+   
+  </div>
+
+  <div class="form-group col-md-6 ">
+    <label for="contraseña" class="lbcontraseña">Contraseña</label>
+   <input type="text" class="form-control" id="contraseña" placeholder="contraseña" name="contraseña" required>
+   <div id="" class="texto">
+  <p>Este campo es obligatorio</p>
+   </div>
+   
+  </div>
 
 
 

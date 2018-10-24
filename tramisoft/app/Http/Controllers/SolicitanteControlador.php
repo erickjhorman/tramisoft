@@ -7,6 +7,7 @@ use Request;
 use tramisoft\solicitante;
 use Illuminate\Support\Facades\Input ;
 use DB;
+use \Crypt;
 
 
 
@@ -88,7 +89,12 @@ class SolicitanteControlador extends Controller
         $Solicitante->Idnacionalidad = Input::get('nacionalidades');  
         $Solicitante->Iddepartamento = Input::get('departamento'); 
         $Solicitante->Idciudad = Input::get('ciudad'); 
+        
+        $Solicitante->usuario = Input::get('usuario'); 
+        $Solicitante->contraseña =Crypt::encryptString(Input::get('contraseña')); 
+        //Me encripta la contraseña
        
+
         $Solicitante->save();
         return 'Saved';
 
