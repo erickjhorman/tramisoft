@@ -1,4 +1,4 @@
-@extends('layouts.tramite')
+@extends('layouts.index')
 
 @section('title' , 'Registro tramite')
 @section('content')  <!-- Section y endsection son directivas para poner info del body de la pagina-->
@@ -6,7 +6,11 @@
 
    <!-- NavBar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand" href="#">Navbar</a>
+
   <a class="navbar-brand" href="{{url('/inicio')}}">Iniciar Sesion</a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -80,7 +84,11 @@
 </div>
 
 <!--<a class="btn btn-primary"><iframe id="iframeTramite" src="/tramite/create" width="100%" height="600"></iframe>Enviar</a>-->
+
+<button  onclick="location.href='/solicitante/create" type="button" class="btn btn-outline-primary">Tramite</button>
+
 <button id="MostrarModalTramite" type="button" class="btn btn-outline-primary">Primary</button>
+
       
 
 <!--<button id="MostrarModalTramite" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Tramite_modal">Primary</button>-->      

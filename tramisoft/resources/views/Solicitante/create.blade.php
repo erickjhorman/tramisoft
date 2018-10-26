@@ -1,4 +1,3 @@
-
 @extends('layouts.solicitante')
 
 @section('title' , 'Registro solicitante')

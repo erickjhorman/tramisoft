@@ -19,7 +19,7 @@
       <div class="container">  
       	 @yield('content')
       	 
-
+         
           <!--Clase contenedor de boostrap-->
 
       </div>

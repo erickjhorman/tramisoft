@@ -1,4 +1,3 @@
-
 alert("Aqui documentacion");
 (function(){
 "use strict";

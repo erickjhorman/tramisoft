@@ -16,7 +16,9 @@ class DocumentacionControlador extends Controller
      */
     public function index()
     {
-        //
+        
+         
+
     }
 
     /**
@@ -26,7 +28,13 @@ class DocumentacionControlador extends Controller
      */
     public function create()
     {
-    return view('documentacion.create');
+     
+    //Consulta de id, nombre y numero de identificacion
+       
+           $solicitantes = DB::select('select id,nombre,apellido, numeroIdentificacion from solicitantes where id =(SELECT max(id) FROM solicitantes)');
+
+
+     return view('documentacion.create', compact('solicitantes'));
     }
 
     /**

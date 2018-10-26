@@ -29,7 +29,7 @@ class AddColumnSolicitanteUsuarioPassword extends Migration
      */
     public function down()
     {
-        chema::table('solicitantes', function (Blueprint $table) {
+        Schema::table('solicitantes', function (Blueprint $table) {
             
             $table->dropColumn('usuario');
             $table->binary('contraseña');
